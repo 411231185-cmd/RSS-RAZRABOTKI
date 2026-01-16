@@ -1,0 +1,123 @@
+Читаю каталог: C:\Dev\Katalog-RSS\catalogs\ЭТАЛОННЫЙ есть UID и SKU!!!.csv
+
+Загружено офферов: 424
+
+ kzul_gk_1H65_50_101
+   Префикс: kzul | Последнее число: 101
+    UID: 545729633152 | SKU: AUTO.РТ30101 | Score: 11
+      Также подходит: SHVP.РТ30101 (score=11)
+
+ kzul_val_1M63_21_236
+   Префикс: kzul | Последнее число: 236
+    UID: KOLZUBPERBABK.1М63 | SKU: KOLZUBPERBABK.1М63_21_395 | Score: 9
+      Также подходит: KOLZUBPERBABK.1М63Б_1М63Б_70_210 (score=9)
+
+ kzul_val_1M63Y_20_181
+   Префикс: kzul | Последнее число: 181
+    UID: 195504077062 | SKU: KOLZUBPERBABK.1М63_1М63_06_203 | Score: 9
+      Также подходит: KOLZUBPERBABK.1М63Б_20_189 (score=9)
+
+ kzul_val_1M63Y_20_182
+   Префикс: kzul | Последнее число: 182
+    UID: 195504077062 | SKU: KOLZUBPERBABK.1М63_1М63_06_203 | Score: 9
+      Также подходит: KOLZUBPERBABK.1М63Б_20_189 (score=9)
+
+ kzul_vk_1H65_50_179
+   Префикс: kzul | Последнее число: 179
+    UID: 810812748192 | SKU: KOLZUBPERBABK.164_164_07_179 | Score: 17
+
+ krols_f130_rt301.41.151
+   Префикс: krols | Последнее число: 151
+    UID: 420924118002 | SKU: KOLZUBPERBABK.16К30_16К30_70_151 | Score: 13
+      Также подходит: KOLZUBPERBABK.РТ502_РТ502_33_151 (score=13)
+
+ Krols_f150_cm2348.510.302-1
+   Префикс: krols | Последнее число: 1
+    UID: 261228525932 | SKU: ROL.UPR.KZ1840.F150.ИН172-36-01 | Score: 14
+      Также подходит: ROL.UPR.KZ1840.F150.ИН172-37-01 (score=14)
+
+ kuzl_f_vilka1M63_04_028
+   Префикс: kuzl | Последнее число: 028
+    UID: 205582153142 | SKU: VILKA.1М63_21_028 | Score: 12
+
+ Kuzl__val_kz_165.02.410
+   Префикс: kuzl | Последнее число: 410
+    UID: 942588265452 | SKU: KOLZUBPERBABK.165_165_02_410 | Score: 18
+
+ krols_f150_KG.1841.02.000
+   Префикс: krols | Последнее число: 000
+    UID: 444558921272 | SKU: VINT.HOD.50x10.L2000 | Score: 10
+      Также подходит: REVOLVGOLOV.16K30F3.40.000 (score=10)
+
+ Krols_f165_cm2349.510.302-1
+   Префикс: krols | Последнее число: 1
+    UID: KOLZUBPERBABK.165 | SKU: KOLZUBPERBABK.165_02_801 | Score: 14
+      Также подходит: ROL.UPR.KZ1840.F165.КЖ1844.02.400.011 (score=14)
+
+ Kuzl_pb_val_1m63
+   Префикс: kuzl | Последнее число: 63
+    UID: KOLZUBPERBABK.У05 | SKU: KOLZUBPERBABK.У05_20_163 | Score: 17
+
+ krols-KG1844-02-400-050
+   Префикс: krols | Последнее число: 050
+    UID: 490880135822 | SKU: ROL.UPR.KZ1840.F165.КЖ1844.02.400.050 | Score: 16
+      Также подходит: ROL.UPR.KZ1842.F165.КЖ1844.02.400.050 (score=16)
+
+ krols-LKT1181-7040-
+   Префикс: krols | Последнее число: 7040
+    UID: 483786383132 | SKU: ROL.SGL.KZ1840.F180.ЛКТ1181-7040 | Score: 14
+      Также подходит: ROL.SGL.KZ1842.F180.ЛКТ1181-7040 (score=14)
+
+ krolu_f130_rt301.41.150
+   Префикс: krolu | Последнее число: 150
+    UID: 454111005722 | SKU: KOLZUBPERBABK.1Н983_1Н983_34_150 | Score: 13
+      Также подходит: ROL.UPR.KZ1840.F150 (score=13)
+
+ Krolu_f150_cm2348.510.301-
+   Префикс: krolu | Последнее число: 301
+    UID: 880031924812 | SKU: AUTO.РТ301 | Score: 10
+
+ k-zb-shpindel-1658-03-198
+   Префикс: k | Последнее число: 198
+    UID: 273869290172 | SKU: KOLZUBPERBABK.1658_1658_15_175 | Score: 4
+      Также подходит: KOLZUBPERBABK.1658_1658_15_184 (score=4)
+
+ Kuzl_rez_dip500
+   Префикс: kuzl | Последнее число: 500
+    UID: 713190321092 | SKU: SMENSHEST.VALIKKOLZUB.RT5004.5004361541 | Score: 11
+      Также подходит: SMENSHEST.VALIKKOLZUB.RT5004.500436159 (score=11)
+
+ Kuzl_rez_1H65
+   Префикс: kuzl | Последнее число: 65
+    UID: 668440207852 | SKU: KOLZUBPERBABK.1М63Б_1М63Б_61_165 | Score: 17
+
+ kuzl_patron_f1000
+   Префикс: kuzl | Последнее число: 1000
+    UID: 553654432722 | SKU: PATRON.4K.1000 | Score: 10
+
+========================================================================================================================
+ИТОГОВЫЙ ОТЧЁТ (ПРИОРИТЕТ НА ПОСЛЕДНИЕ ЧИСЛА И ПРЕФИКСЫ)
+========================================================================================================================
+kzul_gk_1H65_50_101                       AUTO.РТ30101                                       (score=11)   
+kzul_val_1M63_21_236                      KOLZUBPERBABK.1М63_21_395                          (score=9)    
+kzul_val_1M63Y_20_181                     KOLZUBPERBABK.1М63_1М63_06_203                     (score=9)    
+kzul_val_1M63Y_20_182                     KOLZUBPERBABK.1М63_1М63_06_203                     (score=9)    
+kzul_vk_1H65_50_179                       KOLZUBPERBABK.164_164_07_179                       (score=17)   
+krols_f130_rt301.41.151                   KOLZUBPERBABK.16К30_16К30_70_151                   (score=13)   
+Krols_f150_cm2348.510.302-1               ROL.UPR.KZ1840.F150.ИН172-36-01                    (score=14)   
+kuzl_f_vilka1M63_04_028                   VILKA.1М63_21_028                                  (score=12)
+Kuzl__val_kz_165.02.410                   KOLZUBPERBABK.165_165_02_410                       (score=18)   
+krols_f150_KG.1841.02.000                 VINT.HOD.50x10.L2000                               (score=10)   
+Krols_f165_cm2349.510.302-1               KOLZUBPERBABK.165_02_801                           (score=14)   
+Kuzl_pb_val_1m63                          KOLZUBPERBABK.У05_20_163                           (score=17)   
+krols-KG1844-02-400-050                   ROL.UPR.KZ1840.F165.КЖ1844.02.400.050              (score=16)   
+krols-LKT1181-7040-                       ROL.SGL.KZ1840.F180.ЛКТ1181-7040                   (score=14)   
+krolu_f130_rt301.41.150                   KOLZUBPERBABK.1Н983_1Н983_34_150                   (score=13)   
+Krolu_f150_cm2348.510.301-                AUTO.РТ301                                         (score=10)   
+k-zb-shpindel-1658-03-198                 KOLZUBPERBABK.1658_1658_15_175                     (score=4)    
+Kuzl_rez_dip500                           SMENSHEST.VALIKKOLZUB.RT5004.5004361541            (score=11)   
+Kuzl_rez_1H65                             KOLZUBPERBABK.1М63Б_1М63Б_61_165                   (score=17)   
+kuzl_patron_f1000                         PATRON.4K.1000                                     (score=10)   
+
+ Результаты сохранены: C:\Dev\Katalog-RSS\data\manual_mapping_v2.csv
+PS C:\Dev\Katalog-RSS\scripts> 
