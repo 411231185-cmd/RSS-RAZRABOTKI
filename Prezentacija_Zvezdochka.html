@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Prezentacija_Zvezdochka.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<p>З# 🏭 ТД РУССтанкоСбыт</p>
+<h2 id="%D0%BF%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F-%D0%B4%D0%BB%D1%8F-%D0%B0%D0%BE-%22%D0%BF%D0%BE-%22%D1%81%D0%B5%D0%B2%D0%BC%D0%B0%D1%88%22-%D0%B8-%D0%B0%D0%BE-%22%D1%86%D1%81-%22%D0%B7%D0%B2%D0%B5%D0%B7%D0%B4%D0%BE%D1%87%D0%BA%D0%B0%22">Презентация для АО &quot;ПО &quot;Севмаш&quot; и АО &quot;ЦС &quot;Звездочка&quot;</h2>
+<hr>
+<h2 id="%D1%81%D0%BB%D0%B0%D0%B9%D0%B4-1-%D1%82%D0%B8%D1%82%D1%83%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9">Слайд 1: Титульный</h2>
+<div align="center">
+<h1 id="%E2%9A%99%EF%B8%8F-%D1%82%D0%B4-%D1%80%D1%83%D1%81%D1%81%D1%82%D0%B0%D0%BD%D0%BA%D0%BE%D1%81%D0%B1%D1%8B%D1%82">⚙️ ТД РУССтанкоСбыт</h1>
+<h3 id="%D1%80%D0%B5%D0%BC%D0%BE%D0%BD%D1%82-%D0%BC%D0%BE%D0%B4%D0%B5%D1%80%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F-%D0%B8-%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE-%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D1%87%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BE%D0%B1%D0%BE%D1%80%D1%83%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F"><strong>Ремонт, модернизация и производство станочного оборудования</strong></h3>
+<h4 id="%F0%9F%9A%A2-%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%81%D0%BD%D1%8B%D0%B5-%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B4%D0%BB%D1%8F-%D1%81%D1%83%D0%B4%D0%BE%D1%81%D1%82%D1%80%D0%BE%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B9-%D0%BF%D1%80%D0%BE%D0%BC%D1%8B%D1%88%D0%BB%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D0%B8">🚢 Комплексные решения для судостроительной промышленности</h4>
+<hr>
+<blockquote>
+<h3 id="%F0%9F%8F%86-%D0%BD%D0%B0%D0%B4%D0%B5%D0%B6%D0%BD%D1%8B%D0%B9-%D0%BF%D0%B0%D1%80%D1%82%D0%BD%D0%B5%D1%80-%D1%81-2014-%D0%B3%D0%BE%D0%B4%D0%B0">🏆 Надежный партнер с 2014 года</h3>
+<p><strong>12 лет опыта | 4 площадки | 15 000+ м² | 60+ специалистов</strong></p>
+</blockquote>
+<hr>
+<h3 id="%F0%9F%93%9E-%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%8B">📞 Контакты</h3>
+<p>📧 <strong>Email:</strong> zakaz@tdrusstankosbyt.ru<br>
+📱 <strong>Телефон:</strong> +7 (499) 390-85-04<br>
+🌐 <strong>Сайт:</strong> https://tdrusstankosbyt.ru<br>
+💬 <strong>Telegram:</strong> https://t.me/tdrusstankosbyt</p>
+</div>
+<hr>
+<h2 id="%D1%81%D0%BB%D0%B0%D0%B9%D0%B4-2-%D0%BE-%D0%BA%D0%BE%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D0%B8">Слайд 2: О компании</h2>
+<div align="center">
+<h3 id="%F0%9F%8F%A2-%D1%82%D0%B4-%D1%80%D1%83%D1%81%D1%81%D1%82%D0%B0%D0%BD%D0%BA%D0%BE%D1%81%D0%B1%D1%8B%D1%82-%E2%80%93-%D0%B2%D0%B0%D1%88-%D0%BD%D0%B0%D0%B4%D1%91%D0%B6%D0%BD%D1%8B%D0%B9-%D0%BF%D0%B0%D1%80%D1%82%D0%BD%D1%91%D1%80-%D0%B2-%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D0%B8-%D1%81%D1%82%D0%B0%D0%BD%D0%BA%D0%BE%D1%81%D1%82%D1%80%D0%BE%D0%B5%D0%BD%D0%B8%D1%8F">🏢 ТД РУССтанкоСбыт – Ваш надёжный партнёр в области станкостроения</h3>
+</div>
+<h4 id="%F0%9F%93%8A-%D0%BA%D1%80%D0%B0%D1%82%D0%BA%D0%B0%D1%8F-%D1%81%D0%BF%D1%80%D0%B0%D0%B2%D0%BA%D0%B0">📊 Краткая справка</h4>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Значение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🗓️ <strong>Год основания</strong></td>
+<td>2014</td>
+</tr>
+<tr>
+<td>⏱️ <strong>Опыт работы</strong></td>
+<td>12 лет на рынке промышленного оборудования</td>
+</tr>
+<tr>
+<td>🎯 <strong>Специализация</strong></td>
+<td>Полный цикл обслуживания станочного парка</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="%F0%9F%94%A7-%D0%BD%D0%B0%D1%88%D0%B0-%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F">🔧 Наша специализация:</h4>
+<table>
+<tr>
+<td width="50%">
+<p><strong>🛠️ РЕМОНТ И МОДЕРНИЗАЦИЯ</strong></p>
+<ul>
+<li>✅ Ремонт и восстановление станочного оборудования</li>
+<li>✅ Модернизация производственных линий</li>
+<li>✅ Установка систем ЧПУ</li>
+</ul>
+</td>
+<td width="50%">
+<p><strong>🏭 ПРОИЗВОДСТВО И ПОСТАВКА</strong></p>
+<ul>
+<li>✅ Поставка нового оборудования и запасных частей</li>
+<li>✅ Изготовление индивидуальных заказов</li>
+<li>✅ Производство специализированных узлов и деталей</li>
+</ul>
+</td>
+</tr>
+</table>
+<hr>
+<h4 id="%F0%9F%A4%9D-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D0%B5%D0%BC-%D1%81-%D0%BA%D1%80%D1%83%D0%BF%D0%BD%D0%B5%D0%B9%D1%88%D0%B8%D0%BC%D0%B8-%D0%BF%D1%80%D0%B5%D0%B4%D0%BF%D1%80%D0%B8%D1%8F%D1%82%D0%B8%D1%8F%D0%BC%D0%B8">🤝 Работаем с крупнейшими предприятиями:</h4>
+<pre class="hljs"><code><div>╔══════════════════════════════════════════════════════════╗
+║  🏢 Корпорация &quot;Звездочка&quot;                              ║
+║  🏢 ПАО &quot;Севмаш&quot;                                         ║
+║  🏢 АО &quot;Уральская Сталь&quot;                                 ║
+║  🏢 И другие промышленные гиганты России                 ║
+╚══════════════════════════════════════════════════════════╝
+</div></code></pre>
+<hr>
+<h2 id="%D1%81%D0%BB%D0%B0%D0%B9%D0%B4-3-%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%B2%D1%8B%D0%B5-%D0%BF%D0%BE%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D0%B5%D0%BB%D0%B8">Слайд 3: Ключевые показатели</h2>
+<div align="center">
+<h3 id="%F0%9F%93%88-%D0%BD%D0%B0%D1%88%D0%B8-%D1%86%D0%B8%D1%84%D1%80%D1%8B-%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D1%8F%D1%82-%D1%81%D0%B0%D0%BC%D0%B8-%D0%B7%D0%B0-%D1%81%D0%B5%D0%B1%D1%8F">📈 Наши цифры говорят сами за себя</h3>
+</div>
+<table>
+<tr>
+<td align="center" width="33%">
+<h3 id="%F0%9F%97%93%EF%B8%8F-12-%D0%BB%D0%B5%D1%82">🗓️ <strong>12 ЛЕТ</strong></h3>
+<p><strong>на рынке</strong><br>
+с 2014 года</p>
+</td>
+<td align="center" width="33%">
+<h3 id="%F0%9F%8F%AD-4-%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%BA%D0%B8">🏭 <strong>4 ПЛОЩАДКИ</strong></h3>
+<p><strong>производственных</strong><br>
+Рязань, Воронеж, Ижевск, Беларусь</p>
+</td>
+<td align="center" width="33%">
+<h3 id="%F0%9F%93%90-15-000-%D0%BC%C2%B2">📐 <strong>15 000+ м²</strong></h3>
+<p><strong>производственных</strong><br>
+площадей</p>
+</td>
+</tr>
+</table>
+<table>
+<tr>
+<td align="center" width="33%">
+<h3 id="%F0%9F%91%A8%E2%80%8D%F0%9F%94%A7-60-%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA">👨‍🔧 <strong>60+ ЧЕЛОВЕК</strong></h3>
+<p><strong>квалифицированных</strong><br>
+специалистов</p>
+</td>
+<td align="center" width="33%">
+<h3 id="%F0%9F%8F%97%EF%B8%8F-2-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%B0">🏗️ <strong>2 ОБЪЕКТА</strong></h3>
+<p><strong>складских</strong><br>
+помещений</p>
+</td>
+<td align="center" width="33%">
+<h3 id="%E2%9A%99%EF%B8%8F-500-%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D0%B5%D0%B9">⚙️ <strong>500+ МОДЕЛЕЙ</strong></h3>
+<p><strong>станков</strong><br>
+в портфеле</p>
+</td>
+</tr>
+</table>
+<hr>
+<h4 id="%F0%9F%91%A5-%D0%BF%D1%80%D0%BE%D1%84%D0%B5%D1%81%D1%81%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D0%B0">👥 Профессиональная команда:</h4>
+<table>
+<tr>
+<td width="50%">
+<p><strong>🎨 КОНСТРУКТОРСКИЙ ОТДЕЛ</strong></p>
+<ul>
+<li>👨‍💼 Конструкторы: <strong>5 специалистов</strong></li>
+<li>🛠️ Технологи и технические директора</li>
+</ul>
+</td>
+<td width="50%">
+<p><strong>🔧 ПРОИЗВОДСТВЕННЫЙ ПЕРСОНАЛ</strong></p>
+<ul>
+<li>🔩 Токари: <strong>15 человек</strong></li>
+<li>⚙️ Фрезеровщики и шлифовщики: <strong>5 человек</strong></li>
+<li>🔌 Пусконаладчики: <strong>3 специалиста</strong></li>
+</ul>
+</td>
+</tr>
+</table>
+<hr>
+<h2 id="%D1%81%D0%BB%D0%B0%D0%B9%D0%B4-4-%D0%B3%D0%B5%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D1%8F-%D0%BF%D1%80%D0%B8%D1%81%D1%83%D1%82%D1%81%D1%82%D0%B2%D0%B8%D1%8F">Слайд 4: География присутствия</h2>
+<div align="center">
+<h3 id="%F0%9F%97%BA%EF%B8%8F-4-%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5-%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%BA%D0%B8-%D0%BF%D0%BE-%D0%B2%D1%81%D0%B5%D0%B9-%D1%80%D0%BE%D1%81%D1%81%D0%B8%D0%B8-%D0%B8-%D1%81%D0%BD%D0%B3">🗺️ 4 производственные площадки по всей России и СНГ</h3>
+<h4 id="%D1%81%D1%83%D0%BC%D0%BC%D0%B0%D1%80%D0%BD%D0%B0%D1%8F-%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F-%D0%BC%D0%BE%D1%89%D0%BD%D0%BE%D1%81%D1%82%D1%8C-15-000-%D0%BC%C2%B2"><strong>Суммарная производственная мощность: 15 000+ м²</strong></h4>
+</div>
+<hr>
+<table>
+<tr>
+<td width="50%">
+<h4 id="%F0%9F%93%8D-%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%BA%D0%B0-%E2%84%961-%E2%80%93-%D0%B3-%D1%80%D1%8F%D0%B7%D0%B0%D0%BD%D1%8C">📍 <strong>Площадка №1 – г. Рязань</strong></h4>
+<pre class="hljs"><code><div>┌─────────────────────────────────┐
+│ Площадь: 2 000 м²              │
+│ Специализация:                  │
+│ • Полный цикл производства      │
+│ • Ремонт и модернизация         │
+│ • Электромонтаж и гидравлика    │
+└─────────────────────────────────┘
+</div></code></pre>
+<h4 id="%F0%9F%93%8D-%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%BA%D0%B0-%E2%84%962-%E2%80%93-%D0%B3-%D0%B2%D0%BE%D1%80%D0%BE%D0%BD%D0%B5%D0%B6">📍 <strong>Площадка №2 – г. Воронеж</strong></h4>
+<pre class="hljs"><code><div>┌─────────────────────────────────┐
+│ Площадь: 2 000 м²              │
+│ Особенность:                    │
+│ • Партнерство с ОАО             │
+│   «Тяжмехпресс»                 │
+│ • Обработка деталей до 150 тонн │
+│ • Мостовой кран 160 тонн ⭐     │
+└─────────────────────────────────┘
+</div></code></pre>
+</td>
+<td width="50%">
+<h4 id="%F0%9F%93%8D-%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%BA%D0%B0-%E2%84%963-%E2%80%93-%D0%B3-%D0%B8%D0%B6%D0%B5%D0%B2%D1%81%D0%BA">📍 <strong>Площадка №3 – г. Ижевск</strong></h4>
+<pre class="hljs"><code><div>┌─────────────────────────────────┐
+│ Площадь: 2 000 м²              │
+│ Специализация:                  │
+│ • Изготовление шестерен         │
+│ • Производство револьверных     │
+│   головок                       │
+│ • Полный механический цикл      │
+└─────────────────────────────────┘
+</div></code></pre>
+<h4 id="%F0%9F%93%8D-%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%BA%D0%B0-%E2%84%964-%E2%80%93-%D0%B1%D0%B5%D0%BB%D0%B0%D1%80%D1%83%D1%81%D1%8C">📍 <strong>Площадка №4 – Беларусь</strong></h4>
+<pre class="hljs"><code><div>┌─────────────────────────────────┐
+│ Назначение:                     │
+│ • Расширение географии поставок │
+│ • Обслуживание международных    │
+│   клиентов                      │
+│ • Логистический центр           │
+└─────────────────────────────────┘
+</div></code></pre>
+</td>
+</tr>
+</table>
+<hr>
+<h2 id="%D1%81%D0%BB%D0%B0%D0%B9%D0%B4-5-%D0%BE%D0%B1%D0%BE%D1%80%D1%83%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B8-%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5-%D0%B2%D0%BE%D0%B7%D0%BC%D0%BE%D0%B6%D0%BD%D0%BE%D1%81%D1%82%D0%B8">Слайд 5: Оборудование и технические возможности</h2>
+<div align="center">
+<h3 id="%E2%9A%99%EF%B8%8F-%D1%81%D0%BE%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D1%87%D0%BD%D1%8B%D0%B9-%D0%BF%D0%B0%D1%80%D0%BA">⚙️ Современный станочный парк</h3>
+</div>
+<table>
+<tr>
+<td width="50%">
+<h4 id="%F0%9F%94%A7-%D1%82%D0%BE%D0%BA%D0%B0%D1%80%D0%BD%D0%B0%D1%8F-%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0">🔧 <strong>Токарная обработка</strong></h4>
+<pre class="hljs"><code><div>╔════════════════════════════════╗
+║ Максимальный диаметр: Ø1000 мм ║
+║ Максимальная длина: 3000 мм    ║
+║ ✓ Станки с ЧПУ                 ║
+║ ✓ Высокоточная обработка       ║
+╚════════════════════════════════╝
+</div></code></pre>
+<h4 id="%E2%9A%99%EF%B8%8F-%D1%84%D1%80%D0%B5%D0%B7%D0%B5%D1%80%D0%BD%D0%B0%D1%8F-%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0">⚙️ <strong>Фрезерная обработка</strong></h4>
+<pre class="hljs"><code><div>╔════════════════════════════════╗
+║ Максимальные габариты:         ║
+║ 1200 × 5000 мм                 ║
+║ ✓ Фрезерная группа             ║
+║ ✓ Различная конфигурация       ║
+╚════════════════════════════════╝
+</div></code></pre>
+</td>
+<td width="50%">
+<h4 id="%E2%9C%A8-%D1%88%D0%BB%D0%B8%D1%84%D0%BE%D0%B2%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F-%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0">✨ <strong>Шлифовальная обработка</strong></h4>
+<pre class="hljs"><code><div>╔════════════════════════════════╗
+║ Круглошлифовальная:            ║
+║ • Ø 400 мм, длина 1200 мм      ║
+║ Плоскошлифовальная группа      ║
+║ Координатно-шлифовальная       ║
+╚════════════════════════════════╝
+</div></code></pre>
+<h4 id="%F0%9F%94%A9-%D1%80%D0%B0%D1%81%D1%82%D0%BE%D1%87%D0%BD%D1%8B%D0%B5-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">🔩 <strong>Расточные работы</strong></h4>
+<pre class="hljs"><code><div>╔════════════════════════════════╗
+║ Расточный стол:                ║
+║ 1200 × 1200 мм                 ║
+║ ✓ Прецизионная обработка       ║
+╚════════════════════════════════╝
+</div></code></pre>
+</td>
+</tr>
+</table>
+<hr>
+<h2 id="%D1%81%D0%BB%D0%B0%D0%B9%D0%B4-6-%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D0%B8%D0%B7%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D0%BE%D0%B5-%D0%BE%D0%B1%D0%BE%D1%80%D1%83%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">Слайд 6: Специализированное оборудование</h2>
+<div align="center">
+<h3 id="%F0%9F%8F%AD-%D0%BF%D0%BE%D0%BB%D0%BD%D1%8B%D0%B9-%D1%86%D0%B8%D0%BA%D0%BB-%D0%BC%D0%B5%D1%82%D0%B0%D0%BB%D0%BB%D0%BE%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8">🏭 Полный цикл металлообработки</h3>
+</div>
+<table>
+<tr>
+<td width="50%">
+<h4 id="%F0%9F%94%A8-%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5-%D0%BE%D0%B1%D0%BE%D1%80%D1%83%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">🔨 <strong>Дополнительное оборудование</strong></h4>
+<pre class="hljs"><code><div>┌───────────────────────────────┐
+│ 🔪 Гильотины для резки металла│
+│ ⚡ Сварочное оборудование      │
+│    (все типы сварки)          │
+│ 🎨 Покрасочные участки        │
+│ 🔥 Термообработка (Воронеж)   │
+└───────────────────────────────┘
+</div></code></pre>
+<h4 id="%E2%9A%A1-%D1%8D%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D0%BC%D0%BE%D0%BD%D1%82%D0%B0%D0%B6%D0%BD%D1%8B%D0%B9-%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%BE%D0%BA">⚡ <strong>Электромонтажный участок</strong></h4>
+<ul>
+<li>✅ Производство и ремонт электрооборудования станков</li>
+<li>✅ Модернизация систем ЧПУ</li>
+<li>✅ Электротехнические работы</li>
+</ul>
+</td>
+<td width="50%">
+<h4 id="%F0%9F%92%A7-%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%BE%D0%BA-%D0%B3%D0%B8%D0%B4%D1%80%D0%B0%D0%B2%D0%BB%D0%B8%D0%BA%D0%B8">💧 <strong>Участок гидравлики</strong></h4>
+<ul>
+<li>✅ Ремонт и производство гидравлических систем</li>
+<li>✅ Диагностика и наладка</li>
+<li>✅ Испытания под давлением</li>
+</ul>
+<h4 id="%E2%9A%99%EF%B8%8F-%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%BE%D0%BA-%D0%B8%D0%B7%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F-%D1%88%D0%B5%D1%81%D1%82%D0%B5%D1%80%D0%B5%D0%BD">⚙️ <strong>Участок изготовления шестерен</strong></h4>
+<ul>
+<li>✅ Производство зубчатых передач</li>
+<li>✅ Восстановление изношенных шестерен</li>
+<li>✅ Высокая точность изготовления</li>
+</ul>
+<h4 id="%F0%9F%94%84-%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%BE%D0%BA-%D1%80%D0%B5%D0%B2%D0%BE%D0%BB%D1%8C%D0%B2%D0%B5%D1%80%D0%BD%D1%8B%D1%85-%D0%B3%D0%BE%D0%BB%D0%BE%D0%B2%D0%BE%D0%BA">🔄 <strong>Участок револьверных головок</strong></h4>
+<ul>
+<li>✅ Производство и ремонт</li>
+<li>✅ Модернизация под современные требования</li>
+</ul>
+</td>
+</tr>
+</table>
+<hr>
+<h2 id="%D1%81%D0%BB%D0%B0%D0%B9%D0%B4-7-%D0%B3%D1%80%D1%83%D0%B7%D0%BE%D0%BF%D0%BE%D0%B4%D1%8A%D0%B5%D0%BC%D0%BD%D0%BE%D0%B5-%D0%BE%D0%B1%D0%BE%D1%80%D1%83%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">Слайд 7: Грузоподъемное оборудование</h2>
+<div align="center">
+<h3 id="%F0%9F%8F%97%EF%B8%8F-%D0%BC%D0%BE%D1%89%D0%BD%D0%BE%D1%81%D1%82%D0%B8-%D0%B4%D0%BB%D1%8F-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B-%D1%81-%D0%BA%D1%80%D1%83%D0%BF%D0%BD%D0%BE%D0%B3%D0%B0%D0%B1%D0%B0%D1%80%D0%B8%D1%82%D0%BD%D1%8B%D0%BC%D0%B8-%D0%B4%D0%B5%D1%82%D0%B0%D0%BB%D1%8F%D0%BC%D0%B8">🏗️ Мощности для работы с крупногабаритными деталями</h3>
+<h4 id="%E2%AD%90-%D1%83%D0%BD%D0%B8%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5-%D0%BF%D1%80%D0%B5%D0%B8%D0%BC%D1%83%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%BE-%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0-%D0%B4%D0%B5%D1%82%D0%B0%D0%BB%D0%B5%D0%B9-%D0%B4%D0%BE-150-%D1%82%D0%BE%D0%BD%D0%BD-%E2%AD%90">⭐ <strong>УНИКАЛЬНОЕ ПРЕИМУЩЕСТВО: Обработка деталей до 150 тонн</strong> ⭐</h4>
+</div>
+<hr>
+<table>
+<tr>
+<td align="center" width="33%">
+<h3 id="%F0%9F%93%8D-%D1%80%D1%8F%D0%B7%D0%B0%D0%BD%D1%8C">📍 <strong>РЯЗАНЬ</strong></h3>
+<pre class="hljs"><code><div>╔═══════════════════════╗
+║  🏗️ Грузоподъемность  ║
+╠═══════════════════════╣
+║ 2 × 10 тонн           ║
+║ (стационарные краны)  ║
+║                       ║
+║ Автокран до 65 тонн   ║
+╚═══════════════════════╝
+</div></code></pre>
+</td>
+<td align="center" width="33%">
+<h3 id="%F0%9F%93%8D-%D0%B2%D0%BE%D1%80%D0%BE%D0%BD%D0%B5%D0%B6-%E2%AD%90">📍 <strong>ВОРОНЕЖ</strong> ⭐</h3>
+<pre class="hljs"><code><div>╔═══════════════════════╗
+║ 🏗️ Грузоподъемность   ║
+╠═══════════════════════╣
+║ МОСТОВОЙ КРАН         ║
+║ 60/160 ТОНН! 🌟       ║
+║                       ║
+║ Детали до 150 тонн    ║
+╚═══════════════════════╝
+</div></code></pre>
+<p><strong>УНИКАЛЬНО!</strong></p>
+</td>
+<td align="center" width="33%">
+<h3 id="%F0%9F%93%8D-%D0%B8%D0%B6%D0%B5%D0%B2%D1%81%D0%BA">📍 <strong>ИЖЕВСК</strong></h3>
+<pre class="hljs"><code><div>╔═══════════════════════╗
+║ 🏗️ Грузоподъемность   ║
+╠═══════════════════════╣
+║ 2 × 25 тонн           ║
+║ (стационарные краны)  ║
+║                       ║
+║ Автокран до 65 тонн   ║
+╚═══════════════════════╝
+</div></code></pre>
+</td>
+</tr>
+</table>
+<hr>
+<blockquote>
+<h3 id="%F0%9F%92%A1-%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%B2%D0%BE%D0%B5-%D0%BF%D1%80%D0%B5%D0%B8%D0%BC%D1%83%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%BE">💡 <strong>Ключевое преимущество:</strong></h3>
+<p>Возможность работы с <strong>крупногабаритными</strong> и <strong>тяжелыми деталями</strong> благодаря партнерству<br>
+с ОАО «Тяжмехпресс» в Воронеже - <strong>мостовой кран грузоподъемностью 160 тонн!</strong></p>
+</blockquote>
+<hr>
+<h2 id="%D1%81%D0%BB%D0%B0%D0%B9%D0%B4-8-%D0%BD%D0%B0%D1%88%D0%B0-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D0%B0">Слайд 8: Наша команда</h2>
+<h3 id="%D0%B2%D1%8B%D1%81%D0%BE%D0%BA%D0%BE%D0%BA%D0%B2%D0%B0%D0%BB%D0%B8%D1%84%D0%B8%D1%86%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5-%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D1%8B">Высококвалифицированные специалисты</h3>
+<h4 id="%F0%9F%91%A8%E2%80%8D%F0%9F%92%BC-%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B8-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">👨‍💼 Управление и проектирование:</h4>
+<ul>
+<li><strong>Технические директора</strong> – руководство проектами</li>
+<li><strong>Конструкторы</strong> (5 чел.) – разработка технической документации</li>
+<li><strong>Технологи</strong> – оптимизация производственных процессов</li>
+</ul>
+<h4 id="%F0%9F%91%A8%E2%80%8D%F0%9F%94%A7-%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB">👨‍🔧 Производственный персонал:</h4>
+<ul>
+<li><strong>Токари</strong> (15 чел.) – все виды токарной обработки</li>
+<li><strong>Фрезеровщики</strong> (5 чел.) – фрезерные работы любой сложности</li>
+<li><strong>Шлифовщики</strong> (5 чел.) – прецизионная шлифовка</li>
+<li><strong>Пусконаладчики</strong> (3 чел.) – наладка и запуск оборудования</li>
+<li><strong>Сварщики</strong> – все типы сварки</li>
+<li><strong>Электромонтажники</strong> – электротехнические работы</li>
+</ul>
+<h3 id="%D0%BE%D0%B1%D1%89%D0%B0%D1%8F-%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D1%8C-60-%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%BE%D0%B2">Общая численность: 60+ специалистов</h3>
+<h4 id="%D0%BD%D0%B0%D1%88%D0%B8-%D0%BF%D1%80%D0%B5%D0%B8%D0%BC%D1%83%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B0">Наши преимущества:</h4>
+<p>✅ Постоянное обучение и повышение квалификации<br>
+✅ Опыт работы с оборонными предприятиями<br>
+✅ Знание специфики судостроительной отрасли</p>
+<hr>
+<h2 id="%D1%81%D0%BB%D0%B0%D0%B9%D0%B4-9-%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%81-%D1%83%D1%81%D0%BB%D1%83%D0%B3">Слайд 9: Комплекс услуг</h2>
+<h3 id="%D0%BF%D0%BE%D0%BB%D0%BD%D1%8B%D0%B9-%D1%81%D0%BF%D0%B5%D0%BA%D1%82%D1%80-%D1%83%D1%81%D0%BB%D1%83%D0%B3-%D0%B4%D0%BB%D1%8F-%D0%B2%D0%B0%D1%88%D0%B5%D0%B3%D0%BE-%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%B0">Полный спектр услуг для вашего производства</h3>
+<h4 id="%F0%9F%94%A7-%D1%80%D0%B5%D0%BC%D0%BE%D0%BD%D1%82-%D0%BE%D0%B1%D0%BE%D1%80%D1%83%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F">🔧 Ремонт оборудования:</h4>
+<ul>
+<li>Капитальный ремонт станков всех типов</li>
+<li>Восстановление геометрии и точности</li>
+<li>Замена изношенных узлов и механизмов</li>
+<li>Гарантия на все виды работ</li>
+</ul>
+<h4 id="%E2%9A%99%EF%B8%8F-%D0%BC%D0%BE%D0%B4%D0%B5%D1%80%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F">⚙️ Модернизация:</h4>
+<ul>
+<li>Установка систем ЧПУ на станки</li>
+<li>Модернизация электрооборудования</li>
+<li>Повышение производительности</li>
+<li>Улучшение точностных характеристик</li>
+</ul>
+<h4 id="%F0%9F%8F%AD-%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE">🏭 Производство:</h4>
+<ul>
+<li>Изготовление запасных частей по чертежам</li>
+<li>Производство нестандартного оборудования</li>
+<li>Изготовление шестерен и зубчатых передач</li>
+<li>Производство револьверных головок</li>
+</ul>
+<h4 id="%F0%9F%93%A6-%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B0">📦 Поставка:</h4>
+<ul>
+<li>Новое станочное оборудование</li>
+<li>Запасные части (30+ моделей станков)</li>
+<li>Инструмент и оснастка</li>
+<li>Комплексное оснащение производств</li>
+</ul>
+<hr>
+<h2 id="%D1%81%D0%BB%D0%B0%D0%B9%D0%B4-10-%D0%BF%D0%BE%D1%80%D1%82%D0%B0%D0%BB-%D0%B7%D0%B0%D0%BF%D0%B0%D1%81%D0%BD%D1%8B%D1%85-%D1%87%D0%B0%D1%81%D1%82%D0%B5%D0%B9">Слайд 10: Портал запасных частей</h2>
+<h3 id="%D0%BE%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD-%D0%BA%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3-%D0%B8-%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B5-%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B8">Онлайн-каталог и оперативные поставки</h3>
+<h4 id="%F0%9F%8C%90-%D1%8D%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D0%BD%D0%BD%D1%8B%D0%B9-%D0%BA%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3">🌐 Электронный каталог:</h4>
+<ul>
+<li><strong>500+</strong> моделей станочного оборудования</li>
+<li><strong>Более 30</strong> основных моделей станков с постоянным наличием запчастей</li>
+<li>Подробные спецификации и чертежи</li>
+<li>Онлайн-заказ 24/7</li>
+</ul>
+<h4 id="%F0%9F%93%A6-%D0%B2%D0%B8%D0%B4%D1%8B-%D0%B7%D0%B0%D0%BF%D0%B0%D1%81%D0%BD%D1%8B%D1%85-%D1%87%D0%B0%D1%81%D1%82%D0%B5%D0%B9">📦 Виды запасных частей:</h4>
+<ul>
+<li>Шпиндельные узлы</li>
+<li>Суппорты и каретки</li>
+<li>Коробки подач и скоростей</li>
+<li>Электродвигатели и приводы</li>
+<li>Гидравлические и пневматические системы</li>
+<li>Направляющие и станины</li>
+<li>Зубчатые колеса и валы</li>
+</ul>
+<h4 id="%E2%9A%A1-%D0%BF%D1%80%D0%B5%D0%B8%D0%BC%D1%83%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B0">⚡ Преимущества:</h4>
+<ul>
+<li>✅ Складская программа – быстрая отгрузка</li>
+<li>✅ Изготовление под заказ – любые сроки</li>
+<li>✅ Прямые контракты с производителями</li>
+<li>✅ Конкурентные цены</li>
+</ul>
+<hr>
+<h2 id="%D1%81%D0%BB%D0%B0%D0%B9%D0%B4-11-%D1%81%D1%82%D0%B0%D0%BD%D0%B4%D0%B0%D1%80%D1%82%D1%8B-%D0%BA%D0%B0%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%B0">Слайд 11: Стандарты качества</h2>
+<h3 id="%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D0%B5%D0%BC-%D0%BF%D0%BE-%D0%B2%D1%8B%D1%81%D1%88%D0%B8%D0%BC-%D1%81%D1%82%D0%B0%D0%BD%D0%B4%D0%B0%D1%80%D1%82%D0%B0%D0%BC">Работаем по высшим стандартам</h3>
+<h4 id="%F0%9F%93%9C-%D1%81%D0%BE%D0%BE%D1%82%D0%B2%D0%B5%D1%82%D1%81%D1%82%D0%B2%D0%B8%D0%B5-%D1%82%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%D0%BC">📜 Соответствие требованиям:</h4>
+<ul>
+<li>✅ <strong>ГОСТ</strong> – все работы по государственным стандартам</li>
+<li>✅ <strong>СТО</strong> – стандарты организации</li>
+<li>✅ <strong>ISO</strong> – международные стандарты качества</li>
+<li>✅ <strong>Требования ОПК</strong> – соответствие нормам оборонно-промышленного комплекса</li>
+</ul>
+<h4 id="%F0%9F%94%AC-%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C-%D0%BA%D0%B0%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%B0">🔬 Контроль качества:</h4>
+<ul>
+<li>Входной контроль материалов и комплектующих</li>
+<li>Операционный контроль в процессе производства</li>
+<li>Финальная приемка готовой продукции</li>
+<li>Испытания и тестирование</li>
+</ul>
+<h4 id="%F0%9F%93%8B-%D0%B4%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F">📋 Документация:</h4>
+<ul>
+<li>Полный пакет исполнительной документации</li>
+<li>Сертификаты соответствия</li>
+<li>Паспорта на оборудование</li>
+<li>Гарантийные обязательства</li>
+</ul>
+<hr>
+<h2 id="%D1%81%D0%BB%D0%B0%D0%B9%D0%B4-11%D0%B0-%D0%BD%D0%B0%D1%88%D0%B8-%D0%BF%D1%80%D0%B5%D0%B8%D0%BC%D1%83%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B0---%D0%BA%D1%80%D0%B0%D1%82%D0%BA%D0%B0%D1%8F-%D1%81%D0%B2%D0%BE%D0%B4%D0%BA%D0%B0">Слайд 11А: НАШИ ПРЕИМУЩЕСТВА - КРАТКАЯ СВОДКА</h2>
+<div align="center">
+<h1 id="%F0%9F%8F%86-%D1%87%D1%82%D0%BE-%D0%BD%D0%B0%D1%81-%D0%BE%D1%82%D0%BB%D0%B8%D1%87%D0%B0%D0%B5%D1%82-%D0%BE%D1%82-%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D0%B5%D0%BD%D1%82%D0%BE%D0%B2">🏆 ЧТО НАС ОТЛИЧАЕТ ОТ КОНКУРЕНТОВ</h1>
+</div>
+<hr>
+<table>
+<tr>
+<td align="center" width="25%">
+<h3 id="%F0%9F%8E%AF">🎯</h3>
+<h3 id="%D0%BE%D0%BF%D1%8B%D1%82"><strong>ОПЫТ</strong></h3>
+<pre class="hljs"><code><div>┌──────────────┐
+│   12 ЛЕТ     │
+│  НА РЫНКЕ    │
+│              │
+│  С 2014 г.   │
+└──────────────┘
+</div></code></pre>
+<p>Проверенная<br>
+репутация</p>
+</td>
+<td align="center" width="25%">
+<h3 id="%F0%9F%8F%AD">🏭</h3>
+<h3 id="%D0%BC%D0%B0%D1%81%D1%88%D1%82%D0%B0%D0%B1"><strong>МАСШТАБ</strong></h3>
+<pre class="hljs"><code><div>┌──────────────┐
+│ 4 ПЛОЩАДКИ   │
+│              │
+│ 15 000+ м²   │
+│              │
+└──────────────┘
+</div></code></pre>
+<p>Географическая<br>
+доступность</p>
+</td>
+<td align="center" width="25%">
+<h3 id="%E2%9A%99%EF%B8%8F">⚙️</h3>
+<h3 id="%D0%BC%D0%BE%D1%89%D0%BD%D0%BE%D1%81%D1%82%D1%8C"><strong>МОЩНОСТЬ</strong></h3>
+<pre class="hljs"><code><div>┌──────────────┐
+│   КРАН       │
+│  160 ТОНН!   │
+│              │
+│ до 150 тонн  │
+└──────────────┘
+</div></code></pre>
+<p>Уникальные<br>
+возможности</p>
+</td>
+<td align="center" width="25%">
+<h3 id="%F0%9F%91%A5">👥</h3>
+<h3 id="%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D0%B0"><strong>КОМАНДА</strong></h3>
+<pre class="hljs"><code><div>┌──────────────┐
+│     60+      │
+│ СПЕЦИАЛИСТОВ │
+│              │
+│  Профи ОПК   │
+└──────────────┘
+</div></code></pre>
+<p>Высокая<br>
+квалификация</p>
+</td>
+</tr>
+</table>
+<hr>
+<div align="center">
+<h2 id="%F0%9F%92%BC-%D0%BF%D0%BE%D0%BB%D0%BD%D1%8B%D0%B9-%D1%86%D0%B8%D0%BA%D0%BB-%D0%BE%D0%B1%D1%81%D0%BB%D1%83%D0%B6%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F">💼 <strong>ПОЛНЫЙ ЦИКЛ ОБСЛУЖИВАНИЯ</strong></h2>
+<pre class="hljs"><code><div>╔════════════════════════════════════════════════════════════════════════╗
+║                                                                        ║
+║  РЕМОНТ ═══► МОДЕРНИЗАЦИЯ ═══► ПРОИЗВОДСТВО ═══► ПОСТГАРАНТИЯ        ║
+║                                                                        ║
+║  ✓ Восстановление      ✓ Установка ЧПУ      ✓ Собственное           ║
+║  ✓ Капремонт           ✓ Повышение точности  ✓ Изготовление          ║
+║  ✓ Диагностика         ✓ Автоматизация       ✓ Запчасти 500+ моделей ║
+║                                                                        ║
+╚════════════════════════════════════════════════════════════════════════╝
+</div></code></pre>
+</div>
+<hr>
+<table>
+<tr>
+<td width="33%" align="center" bgcolor="#e8f5e9">
+<h3 id="%E2%9C%85-%D0%BA%D0%B0%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE">✅ <strong>КАЧЕСТВО</strong></h3>
+<ul>
+<li>ГОСТ, ISO, ОПК</li>
+<li>Сертифицированные процессы</li>
+<li>Многоступенчатый контроль</li>
+<li>Гарантийные обязательства</li>
+</ul>
+</td>
+<td width="33%" align="center" bgcolor="#e3f2fd">
+<h3 id="%E2%9A%A1-%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D1%81%D1%82%D1%8C">⚡ <strong>ОПЕРАТИВНОСТЬ</strong></h3>
+<ul>
+<li>Быстрые сроки</li>
+<li>Складская программа</li>
+<li>24/7 техподдержка</li>
+<li>Экстренные работы</li>
+</ul>
+</td>
+<td width="33%" align="center" bgcolor="#fff3e0">
+<h3 id="%F0%9F%A4%9D-%D0%BD%D0%B0%D0%B4%D0%B5%D0%B6%D0%BD%D0%BE%D1%81%D1%82%D1%8C">🤝 <strong>НАДЕЖНОСТЬ</strong></h3>
+<ul>
+<li>12 лет на рынке</li>
+<li>Работа с ОПК</li>
+<li>Крупные клиенты</li>
+<li>Долгосрочные отношения</li>
+</ul>
+</td>
+</tr>
+</table>
+<hr>
+<div align="center">
+<h3 id="%F0%9F%8C%9F-%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%B2%D0%BE%D0%B5-%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D0%B5%D0%BD%D1%82%D0%BD%D0%BE%D0%B5-%D0%BF%D1%80%D0%B5%D0%B8%D0%BC%D1%83%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%BE">🌟 <strong>КЛЮЧЕВОЕ КОНКУРЕНТНОЕ ПРЕИМУЩЕСТВО:</strong></h3>
+<pre class="hljs"><code><div>╔═══════════════════════════════════════════════════════════════════════╗
+║                                                                       ║
+║     МЫ ЕДИНСТВЕННЫЕ В РЕГИОНЕ, КТО МОЖЕТ ОБРАБОТАТЬ                 ║
+║     ДЕТАЛИ ВЕСОМ ДО 150 ТОНН НА МОСТОВОМ КРАНЕ 160 ТОНН            ║
+║                                                                       ║
+║           + ПОЛНЫЙ ЦИКЛ ПРОИЗВОДСТВА И МОДЕРНИЗАЦИИ                  ║
+║                                                                       ║
+╚═══════════════════════════════════════════════════════════════════════╝
+</div></code></pre>
+</div>
+<hr>
+<h2 id="%D1%81%D0%BB%D0%B0%D0%B9%D0%B4-12-%D0%BA%D0%BE%D0%BD%D0%BA%D1%83%D1%80%D0%B5%D0%BD%D1%82%D0%BD%D1%8B%D0%B5-%D0%BF%D1%80%D0%B5%D0%B8%D0%BC%D1%83%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B0">Слайд 12: Конкурентные преимущества</h2>
+<div align="center">
+<h3 id="%F0%9F%8C%9F-%D0%BF%D0%BE%D1%87%D0%B5%D0%BC%D1%83-%D0%B2%D1%8B%D0%B1%D0%B8%D1%80%D0%B0%D1%8E%D1%82-%D1%82%D0%B4-%D1%80%D1%83%D1%81%D1%81%D1%82%D0%B0%D0%BD%D0%BA%D0%BE%D1%81%D0%B1%D1%8B%D1%82">🌟 Почему выбирают ТД РУССтанкоСбыт</h3>
+</div>
+<hr>
+<table>
+<tr>
+<td width="50%" bgcolor="#f0f8ff">
+<h3 id="%E2%9A%A1-%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D1%81%D1%82%D1%8C">⚡ <strong>ОПЕРАТИВНОСТЬ</strong></h3>
+<pre class="hljs"><code><div>✓ Быстрая реакция на запросы
+✓ Короткие сроки изготовления
+✓ Наличие складской программы
+✓ Круглосуточная техподдержка
+</div></code></pre>
+<p><strong>Результат:</strong> Минимальное время простоя вашего оборудования</p>
+<hr>
+<h3 id="%F0%9F%92%B0-%D0%BF%D1%80%D0%BE%D0%B7%D1%80%D0%B0%D1%87%D0%BD%D0%BE%D1%81%D1%82%D1%8C">💰 <strong>ПРОЗРАЧНОСТЬ</strong></h3>
+<pre class="hljs"><code><div>✓ Честное ценообразование
+✓ Детальные сметы
+✓ Отчетность на всех этапах
+✓ Фиксированные сроки
+</div></code></pre>
+<p><strong>Результат:</strong> Полный контроль над бюджетом и сроками</p>
+</td>
+<td width="50%" bgcolor="#f0fff0">
+<h3 id="%F0%9F%92%8E-%D0%BA%D0%B0%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE">💎 <strong>КАЧЕСТВО</strong></h3>
+<pre class="hljs"><code><div>✓ Оригинальные комплектующие
+✓ Современное оборудование
+✓ Квалифицированный персонал
+✓ Многоступенчатый контроль
+</div></code></pre>
+<p><strong>Результат:</strong> Гарантия надежности и долговечности</p>
+<hr>
+<h3 id="%F0%9F%A4%9D-%D0%B4%D0%BE%D0%BB%D0%B3%D0%BE%D1%81%D1%80%D0%BE%D1%87%D0%BD%D0%BE%D0%B5-%D0%BF%D0%B0%D1%80%D1%82%D0%BD%D0%B5%D1%80%D1%81%D1%82%D0%B2%D0%BE">🤝 <strong>ДОЛГОСРОЧНОЕ ПАРТНЕРСТВО</strong></h3>
+<pre class="hljs"><code><div>✓ Индивидуальный подход
+✓ Гибкие условия сотрудничества
+✓ Постгарантийное обслуживание
+✓ Накопительные скидки
+</div></code></pre>
+<p><strong>Результат:</strong> Выгодное долгосрочное сотрудничество</p>
+</td>
+</tr>
+</table>
+<hr>
+<div align="center">
+<h3 id="%F0%9F%8F%86-%D0%BD%D0%B0%D1%88%D0%B5-%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%BE%D0%B5-%D0%BF%D1%80%D0%B5%D0%B8%D0%BC%D1%83%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%BE">🏆 <strong>НАШЕ ГЛАВНОЕ ПРЕИМУЩЕСТВО</strong></h3>
+<pre class="hljs"><code><div>╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║   🏭 4 ПРОИЗВОДСТВЕННЫЕ ПЛОЩАДКИ В РАЗНЫХ РЕГИОНАХ              ║
+║   📐 15 000+ М² ПРОИЗВОДСТВЕННЫХ ПЛОЩАДЕЙ                       ║
+║   🏗️ МОСТОВОЙ КРАН 160 ТОНН - ОБРАБОТКА ДЕТАЛЕЙ ДО 150 ТОНН   ║
+║   👨‍🔧 60+ КВАЛИФИЦИРОВАННЫХ СПЕЦИАЛИСТОВ                        ║
+║   ⚙️ СОБСТВЕННЫЙ ПАРК СОВРЕМЕННОГО ОБОРУДОВАНИЯ                 ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+</div></code></pre>
+<h3 id="%D0%BC%D1%8B-%D0%BC%D0%BE%D0%B6%D0%B5%D0%BC-%D1%82%D0%BE-%D1%87%D1%82%D0%BE-%D0%BD%D0%B5-%D0%BC%D0%BE%D0%B3%D1%83%D1%82-%D0%B4%D1%80%D1%83%D0%B3%D0%B8%D0%B5"><strong>МЫ МОЖЕМ ТО, ЧТО НЕ МОГУТ ДРУГИЕ!</strong></h3>
+</div>
+<hr>
+<h2 id="%D1%81%D0%BB%D0%B0%D0%B9%D0%B4-13-%D0%BF%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE-%D1%80%D0%B0%D0%B1%D0%BE%D1%82">Слайд 13: Портфолио работ</h2>
+<h3 id="%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D1%8B-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D1%8B%D1%85-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%BE%D0%B2">Примеры реализованных проектов</h3>
+<h4 id="%F0%9F%8F%97%EF%B8%8F-%D1%81%D1%83%D0%B4%D0%BE%D1%81%D1%82%D1%80%D0%BE%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F-%D0%BF%D1%80%D0%BE%D0%BC%D1%8B%D1%88%D0%BB%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D1%8C">🏗️ Судостроительная промышленность:</h4>
+<ul>
+<li>Ремонт и модернизация токарных станков больших диаметров</li>
+<li>Изготовление крупногабаритных валов</li>
+<li>Производство специализированных шестерен</li>
+<li>Восстановление уникального оборудования</li>
+</ul>
+<h4 id="%F0%9F%8F%AD-%D0%BC%D0%B5%D1%82%D0%B0%D0%BB%D0%BB%D1%83%D1%80%D0%B3%D0%B8%D1%8F-%D0%B8-%D0%BC%D0%B0%D1%88%D0%B8%D0%BD%D0%BE%D1%81%D1%82%D1%80%D0%BE%D0%B5%D0%BD%D0%B8%D0%B5">🏭 Металлургия и машиностроение:</h4>
+<ul>
+<li>Капитальный ремонт прессового оборудования</li>
+<li>Модернизация фрезерных станков</li>
+<li>Изготовление нестандартных деталей по чертежам</li>
+<li>Комплексное оснащение производственных участков</li>
+</ul>
+<h4 id="%E2%9A%99%EF%B8%8F-%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B">⚙️ Специальные проекты:</h4>
+<ul>
+<li>Изготовление револьверных головок под индивидуальные требования</li>
+<li>Производство зубчатых передач повышенной точности</li>
+<li>Восстановление станков 50-70х годов выпуска</li>
+<li>Модернизация станков с установкой ЧПУ</li>
+</ul>
+<h3 id="%F0%9F%93%B8-%D1%84%D0%BE%D1%82%D0%BE%D0%B3%D0%B0%D0%BB%D0%B5%D1%80%D0%B5%D1%8F-%D0%BE%D0%B1%D0%BE%D1%80%D1%83%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%B8-%D0%B2%D1%8B%D0%BF%D0%BE%D0%BB%D0%BD%D0%B5%D0%BD%D0%BD%D1%8B%D1%85-%D1%80%D0%B0%D0%B1%D0%BE%D1%82">📸 Фотогалерея оборудования и выполненных работ:</h3>
+<p><em>[Место для вставки фотографий производственных площадок, оборудования и готовых изделий]</em></p>
+<hr>
+<h2 id="%D1%81%D0%BB%D0%B0%D0%B9%D0%B4-14-%D1%81%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F-%D0%B8-%D0%BF%D0%B0%D1%80%D1%82%D0%BD%D0%B5%D1%80%D1%8B">Слайд 14: Сертификация и партнеры</h2>
+<h3 id="%D0%BE%D1%84%D0%B8%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%B4%D0%BE%D0%BF%D1%83%D1%81%D0%BA%D0%B8-%D0%B8-%D0%BF%D0%B0%D1%80%D1%82%D0%BD%D0%B5%D1%80%D1%81%D1%82%D0%B2%D0%B0">Официальные допуски и партнерства</h3>
+<h4 id="%F0%9F%93%9C-%D0%BD%D0%B0%D1%88%D0%B8-%D1%81%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%D1%8B-%D0%B8-%D0%B4%D0%BE%D0%BF%D1%83%D1%81%D0%BA%D0%B8">📜 Наши сертификаты и допуски:</h4>
+<ul>
+<li>✅ Сертификаты соответствия ГОСТ</li>
+<li>✅ Сертификаты ISO (система менеджмента качества)</li>
+<li>✅ Допуск к работам на режимных объектах</li>
+<li>✅ Допуск к работе с объектами гособоронзаказа (ГПЗ)</li>
+<li>✅ Лицензии на производство специализированной продукции</li>
+</ul>
+<h4 id="%F0%9F%A4%9D-%D0%BF%D0%B0%D1%80%D1%82%D0%BD%D0%B5%D1%80%D1%81%D0%BA%D0%B8%D0%B5-%D0%BE%D1%82%D0%BD%D0%BE%D1%88%D0%B5%D0%BD%D0%B8%D1%8F">🤝 Партнерские отношения:</h4>
+<ul>
+<li><strong>ОАО «Тяжмехпресс»</strong> (Воронеж) – совместное использование производственных мощностей</li>
+<li><strong>Заводы-производители</strong> станочного оборудования</li>
+<li><strong>Поставщики материалов</strong> – прямые контракты</li>
+<li><strong>Конструкторские бюро</strong> – совместная разработка решений</li>
+</ul>
+<h4 id="%F0%9F%8F%86-%D1%80%D0%B5%D0%BA%D0%BE%D0%BC%D0%B5%D0%BD%D0%B4%D0%B0%D1%86%D0%B8%D0%B8-%D0%BE%D1%82">🏆 Рекомендации от:</h4>
+<ul>
+<li>🏢 Корпорация &quot;Звездочка&quot;</li>
+<li>🏢 ПАО &quot;Севмаш&quot;</li>
+<li>🏢 АО &quot;Уральская Сталь&quot;</li>
+<li>🏢 И других крупных предприятий</li>
+</ul>
+<hr>
+<h2 id="%D1%81%D0%BB%D0%B0%D0%B9%D0%B4-15-%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%8B-%D0%B8-%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BD%D0%BE%D1%81%D1%82%D1%8C-%D0%BA-%D1%81%D0%BE%D1%82%D1%80%D1%83%D0%B4%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D1%82%D0%B2%D1%83">Слайд 15: Контакты и готовность к сотрудничеству</h2>
+<div align="center">
+<h1 id="%F0%9F%93%9E-%D1%81%D0%B2%D1%8F%D0%B6%D0%B8%D1%82%D0%B5%D1%81%D1%8C-%D1%81-%D0%BD%D0%B0%D0%BC%D0%B8-%D0%BF%D1%80%D1%8F%D0%BC%D0%BE-%D1%81%D0%B5%D0%B9%D1%87%D0%B0%D1%81">📞 Свяжитесь с нами прямо сейчас!</h1>
+</div>
+<hr>
+<table>
+<tr>
+<td width="50%" align="center">
+<h3 id="%F0%9F%93%A7-%D0%BA%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%8B"><strong>📧 КОНТАКТЫ</strong></h3>
+<pre class="hljs"><code><div>╔════════════════════════════════════╗
+║                                    ║
+║  📧 zakaz@tdrusstankosbyt.ru      ║
+║  📱 +7 (499) 390-85-04            ║
+║  🌐 tdrusstankosbyt.ru            ║
+║  💬 t.me/tdrusstankosbyt          ║
+║                                    ║
+╚════════════════════════════════════╝
+</div></code></pre>
+<h3 id="%F0%9F%91%A5-%D1%80%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE"><strong>👥 РУКОВОДСТВО</strong></h3>
+<p><strong>Генеральный директор:</strong><br>
+Хыдырова Наталья Курбановна</p>
+<p><strong>Менеджер отдела продаж:</strong><br>
+Смирных Максим</p>
+</td>
+<td width="50%" align="center">
+<h3 id="%F0%9F%8E%AF-%D0%BC%D1%8B-%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D1%8B"><strong>🎯 МЫ ГОТОВЫ:</strong></h3>
+<pre class="hljs"><code><div>┌────────────────────────────────┐
+│ ✅ Предоставить КП за 24 часа  │
+│                                │
+│ ✅ Провести техническую        │
+│    экспертизу оборудования     │
+│                                │
+│ ✅ Разработать индивидуальное  │
+│    решение под ваши задачи     │
+│                                │
+│ ✅ Организовать визит на       │
+│    производственные площадки   │
+└────────────────────────────────┘
+</div></code></pre>
+</td>
+</tr>
+</table>
+<hr>
+<div align="center">
+<h1 id="%E2%9A%99%EF%B8%8F-%D1%82%D0%B4-%D1%80%D1%83%D1%81%D1%81%D1%82%D0%B0%D0%BD%D0%BA%D0%BE%D1%81%D0%B1%D1%8B%D1%82">⚙️ ТД РУССтанкоСбыт</h1>
+<h3 id="%D0%BD%D0%B0%D0%B4%D0%B5%D0%B6%D0%BD%D1%8B%D0%B9-%D0%BF%D0%B0%D1%80%D1%82%D0%BD%D0%B5%D1%80-%D0%B4%D0%BB%D1%8F-%D0%B2%D0%B0%D1%88%D0%B5%D0%B3%D0%BE-%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%B0-%D1%81-2014-%D0%B3%D0%BE%D0%B4%D0%B0"><strong>Надежный партнер для вашего производства с 2014 года!</strong></h3>
+<hr>
+<pre class="hljs"><code><div>╔════════════════════════════════════════════════════════════════════╗
+║                                                                    ║
+║         🏆 12 ЛЕТ ОПЫТА | 4 ПЛОЩАДКИ | 60+ СПЕЦИАЛИСТОВ          ║
+║         ⚙️ ПОЛНЫЙ ЦИКЛ ОБСЛУЖИВАНИЯ СТАНОЧНОГО ПАРКА             ║
+║         🏗️ ОБРАБОТКА ДЕТАЛЕЙ ДО 150 ТОНН                         ║
+║                                                                    ║
+╚════════════════════════════════════════════════════════════════════╝
+</div></code></pre>
+<h3 id="%D1%81%D0%BF%D0%B0%D1%81%D0%B8%D0%B1%D0%BE-%D0%B7%D0%B0-%D0%B2%D0%BD%D0%B8%D0%BC%D0%B0%D0%BD%D0%B8%D0%B5"><strong>СПАСИБО ЗА ВНИМАНИЕ!</strong></h3>
+<h3 id="%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D1%8B-%D0%BE%D1%82%D0%B2%D0%B5%D1%82%D0%B8%D1%82%D1%8C-%D0%BD%D0%B0-%D0%B2%D0%B0%D1%88%D0%B8-%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D1%8B"><strong>Готовы ответить на ваши вопросы.</strong></h3>
+<hr>
+<p><sub><em>Презентация подготовлена для АО &quot;Производственное объединение &quot;Севмаш&quot;<br>
+и АО &quot;Центр судоремонта &quot;Звездочка&quot; | Дата: 16 января 2026 года</em></sub></p>
+</div>
+<hr>
+
+</body>
+</html>
