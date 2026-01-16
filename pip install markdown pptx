@@ -1,0 +1,15 @@
+from pptx import Presentation
+from pptx.util import Inches, Pt
+import markdown
+
+# Читаем файл
+with open(r'C:\GitHub-Repositories\RUS-tanko-Sbyt-Agreements\Prezentacija_Zvezdochka77.md', 'r', encoding='utf-8') as f:
+    content = f.read()
+
+# Создаем презентацию
+prs = Presentation()
+prs.slide_width = Inches(10)
+prs.slide_height = Inches(5.625)
+
+# Обработка содержимого (зависит от вашего формата)
+# Запустите: python convert.py
