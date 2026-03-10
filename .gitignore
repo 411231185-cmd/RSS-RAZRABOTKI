@@ -2,3 +2,5 @@ Kluchi.env
 
 # SECURITY-PACK
 # SECURITY-PACK: Ignore secrets and sensitive files .env .env.* *.env Kluchi.env Kluchi*.env **/Kluchi.env secrets/ .secrets/ *.pem *.key *.p12 *.pfx *.crt credentials.json client_secret*.json service-account*.json *.sqlite *.db *.log .vscode/settings.json
+
+.venv/
