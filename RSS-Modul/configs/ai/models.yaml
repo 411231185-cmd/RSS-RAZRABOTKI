@@ -1,0 +1,18 @@
+default_model: "claude-sonnet"
+
+models:
+  claude-sonnet:
+    provider: "anthropic"
+    model_name: "claude-3.5-sonnet"
+    api_key_env: "ANTHROPIC_API_KEY"
+    max_tokens: 2000
+    temperature: 0.4
+    max_batch_size: 8
+
+  claude-opus:
+    provider: "anthropic"
+    model_name: "claude-3-opus"
+    api_key_env: "ANTHROPIC_API_KEY"
+    max_tokens: 2500
+    temperature: 0.4
+    max_batch_size: 4

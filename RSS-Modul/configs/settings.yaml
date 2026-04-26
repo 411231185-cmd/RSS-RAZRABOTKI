@@ -1,0 +1,37 @@
+project_name: "RSS-Modul"
+environment: "dev"
+
+paths:
+  base_dir: "C:\\GitHub-Repositories\\RSS-RAZRABOTKI\\RSS-Modul"
+  data_dir: "C:\\GitHub-Repositories\\Katalog-RSS\\data"
+  exports_dir: "C:\\GitHub-Repositories\\RSS-RAZRABOTKI\\exports"
+
+database:
+  backend: "sqlite"
+  dsn: "sqlite:///rss_modul.db"
+
+logging:
+  level: "INFO"
+  log_dir: "logs"
+
+sources:
+  promportal_export:
+    enabled: true
+    input_file: "PromPortal №-1.xlsx"
+    sheet_name: "Sheet1"
+  directus_tkp:
+    enabled: true
+    input_file: "DIRECTUS_TKP_549_FULL.csv"
+    delimiter: ";"
+    encoding: "utf-8"
+  export_kristina:
+    enabled: true
+    input_file: "export от Кристины.xlsx"
+
+ai:
+  default_model: "claude-sonnet"
+  max_batch_size: 8
+  max_retries: 3
+
+servicesblock:
+  enabled: true
