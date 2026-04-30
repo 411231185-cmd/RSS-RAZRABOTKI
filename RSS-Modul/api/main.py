@@ -49,6 +49,7 @@ class GenerateParams(BaseModel):
     model_id: str = "claude-sonnet"
     code_prefix: Optional[str] = None
     add_services_block: bool = False
+    max_workers: int = 1   # <-- добавить
 
 
 class ValidateParams(BaseModel):
@@ -92,6 +93,7 @@ def _task_generate(params: dict) -> Dict[str, Any]:
         model_id=p.model_id,
         code_prefix=p.code_prefix,
         add_services_block=p.add_services_block,
+        max_workers=p.max_workers,
     )
 
 

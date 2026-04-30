@@ -14,7 +14,7 @@
 """
 import logging
 from pathlib import Path
-from typing import Optional, Dict, Any, Tuple
+from typing import Optional, Dict, Any, Tuple, List
 
 from core.models import GeneratedText
 from core.servicesblock import SERVICESBLOCK, SERVICESBLOCK_MARKER
@@ -24,7 +24,7 @@ from storage.repositories import (
     SourceDescriptionRepository,
     GeneratedTextRepository,
 )
-from clients.llm_client import LLMClientRouter
+from clients.llm_client import ClaudeClient
 
 logger = logging.getLogger(__name__)
 
@@ -94,6 +94,7 @@ def generate_descriptions(
     model_id: str = "anthropic:claude-haiku-4.5",
     code_prefix: Optional[str] = None,
     add_services_block: bool = False,
+    max_workers: int = 1,
 ) -> Dict[str, Any]:
     """
     Сгенерировать AI-описания и (опционально) добавить SERVICESBLOCK.
@@ -106,15 +107,18 @@ def generate_descriptions(
         add_services_block:
             Если True — после генерации к каждому описанию добавляется
             SERVICESBLOCK с защитой от дублирования через SERVICESBLOCK_MARKER.
+        max_workers:
+            Параллельных потоков генерации (1 = последовательно).
 
     Returns:
         Словарь со статистикой выполнения.
     """
     logger.info(
-        "Старт генерации | model_id=%s | code_prefix=%s | add_services_block=%s",
+        "Старт генерации | model_id=%s | code_prefix=%s | add_services_block=%s | max_workers=%d",
         model_id,
         code_prefix,
         add_services_block,
+        max_workers,
     )
 
     init_db()
@@ -144,13 +148,14 @@ def generate_descriptions(
             "model_id": model_id,
             "code_prefix": code_prefix,
             "add_services_block": add_services_block,
+            "max_workers": max_workers,
             "items_processed": 0,
             "skipped": 0,
         }
 
     # Шаг 3. Собрать пары (product, prompt).
     template = _load_prompt_template()
-    pairs = []
+    pairs: List[Tuple[Any, str]] = []
     skipped = 0
 
     for code in codes:
@@ -174,23 +179,23 @@ def generate_descriptions(
             "model_id": model_id,
             "code_prefix": code_prefix,
             "add_services_block": add_services_block,
+            "max_workers": max_workers,
             "items_processed": 0,
             "skipped": skipped,
         }
 
-    # Шаг 4. Вызов LLM через роутер.
+    # Шаг 4. Вызов LLM (ClaudeClient с параллелизмом).
     logger.info(
-        "Запуск генерации для %d товаров (model_id=%s)",
+        "Запуск генерации для %d товаров (model_id=%s, max_workers=%d)",
         len(pairs),
         model_id,
+        max_workers,
     )
-    client = LLMClientRouter(model_id=model_id)
+    client = ClaudeClient(model_id=model_id, max_workers=max_workers)
     prompts = [p for _, p in pairs]
 
-    results = []
-    for prompt in prompts:
-        content = client.generate_description(prompt)
-        results.append(content)
+    # Используем batch, чтобы активировать ThreadPoolExecutor внутри клиента.
+    results = client.generate_batch(prompts, max_tokens=400)
 
     # Шаг 5. Сохранение результатов.
     items_processed = 0
@@ -220,6 +225,7 @@ def generate_descriptions(
         "model_id": model_id,
         "code_prefix": code_prefix,
         "add_services_block": add_services_block,
+        "max_workers": max_workers,
         "items_processed": items_processed,
         "skipped": skipped + errors,
     }

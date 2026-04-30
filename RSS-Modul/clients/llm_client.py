@@ -1,122 +1,198 @@
-# clients/llm_client.py
+"""
+Обёртка над Anthropic API с поддержкой параллельной генерации.
 
-from dataclasses import dataclass
-from typing import Protocol, Tuple
+Mock-режим: если ANTHROPIC_API_KEY не задан, возвращает предсказуемые заглушки.
+Параллелизм: ThreadPoolExecutor для I/O-bound запросов к API.
+Ретраи: экспоненциальный backoff на rate limit и временные сетевые ошибки.
+"""
+import logging
 import os
+import time
+from concurrent.futures import ThreadPoolExecutor
+from typing import List, Optional
 
-from core.description_policy import SERVICESBLOCK
+logger = logging.getLogger(__name__)
 
-# Попробуем импортировать SDK, но не падаем, если его нет — это на совести среды
-try:
-    import anthropic  # type: ignore
-except ImportError:
-    anthropic = None
+_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 
-try:
-    import openai  # type: ignore
-except ImportError:
-    openai = None
-
-
-class LLMClient(Protocol):
-    def generate_description(self, prompt: str) -> str:
-        ...
+# Дефолтные параметры ретраев. Можно переопределить через init.
+DEFAULT_MAX_RETRIES = 3
+DEFAULT_BACKOFF_BASE = 2.0  # 2с, 4с, 8с
+DEFAULT_PROGRESS_EVERY = 25  # лог каждые N товаров
 
 
-@dataclass
-class LLMClientStub:
+class ClaudeClient:
     """
-    Заглушка для отладки пайплайна без реальных вызовов LLM.
-    """
+    Клиент Anthropic API.
 
-    def generate_description(self, prompt: str) -> str:
-        text = (
-            "Инженерное описание будет сгенерировано реальной моделью. "
-            "Текущий текст — заглушка для отладки пайплайна."
-        )
-        return f"{text}\n\n{SERVICESBLOCK}"
-
-
-@dataclass
-class AnthropicClient:
-    model: str
-    max_tokens: int = 800
-
-    def __post_init__(self):
-        if anthropic is None:
-            raise RuntimeError("Пакет 'anthropic' не установлен (pip install anthropic).")
-        api_key = os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("CLAUDE_API_KEY")
-        if not api_key:
-            raise RuntimeError("Не задан ANTHROPIC_API_KEY / CLAUDE_API_KEY в переменных среды.")
-        self._client = anthropic.Anthropic(api_key=api_key)
-
-    def generate_description(self, prompt: str) -> str:
-        resp = self._client.messages.create(
-            model=self.model,
-            max_tokens=self.max_tokens,
-            messages=[
-                {"role": "user", "content": prompt},
-            ],
-        )
-        # Берём первый текстовый блок
-        return resp.content[0].text
-
-
-@dataclass
-class OpenAIClient:
-    model: str
-    max_tokens: int = 800
-
-    def __post_init__(self):
-        if openai is None:
-            raise RuntimeError("Пакет 'openai' не установлен (pip install openai).")
-        api_key = os.environ.get("OPENAI_API_KEY")
-        if not api_key:
-            raise RuntimeError("Не задан OPENAI_API_KEY в переменных среды.")
-        openai.api_key = api_key
-
-    def generate_description(self, prompt: str) -> str:
-        # Адаптируй под актуальный метод OpenAI (chat.completions или messages)
-        resp = openai.ChatCompletion.create(
-            model=self.model,
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=self.max_tokens,
-        )
-        return resp["choices"][0]["message"]["content"]
-
-
-@dataclass
-class LLMClientRouter:
-    """
-    Универсальный роутер по провайдеру/модели.
-
-    Формат model_id:
-      - "anthropic:claude-haiku-4.5"
-      - "anthropic:claude-sonnet-4.6"
-      - "openai:gpt-4.1-mini"
-      - просто "claude-haiku-4.5" → по умолчанию anthropic
+    Параметры:
+        model_id:       идентификатор модели.
+        max_workers:    параллельных потоков для generate_batch (1 = последовательно).
+        max_retries:    попыток на один запрос при rate limit / сетевых ошибках.
+        backoff_base:   база экспоненциального backoff в секундах.
     """
 
-    model_id: str
+    def __init__(
+        self,
+        model_id: str = "claude-sonnet-4-20250514",
+        max_workers: int = 1,
+        max_retries: int = DEFAULT_MAX_RETRIES,
+        backoff_base: float = DEFAULT_BACKOFF_BASE,
+    ):
+        self.model_id = model_id
+        self.max_workers = max(1, max_workers)
+        self.max_retries = max_retries
+        self.backoff_base = backoff_base
+        self._mock = _API_KEY is None
 
-    def _split(self) -> Tuple[str, str]:
-        if ":" in self.model_id:
-            provider, name = self.model_id.split(":", 1)
-            return provider.strip().lower(), name.strip()
-        # по умолчанию считаем, что это Anthropic
-        return "anthropic", self.model_id.strip()
-
-    def generate_description(self, prompt: str) -> str:
-        provider, name = self._split()
-
-        if provider == "anthropic":
-            client = AnthropicClient(model=name)
-        elif provider == "openai":
-            client = OpenAIClient(model=name)
-        elif provider == "stub":
-            client = LLMClientStub()
+        if self._mock:
+            logger.warning(
+                "ANTHROPIC_API_KEY не задан — ClaudeClient работает в MOCK-режиме"
+            )
+            self._client = None
         else:
-            # дефолт: безопасный дешевый вариант
-            client = AnthropicClient(model="claude-haiku-4.5")
+            import anthropic
+            self._client = anthropic.Anthropic(api_key=_API_KEY)
 
-        return client.generate_description(prompt)
+    # ------------------------------------------------------------------ public
+
+    def generate(self, prompt: str, max_tokens: int = 400) -> str:
+        """Сгенерировать один ответ. Делает ретраи внутри."""
+        if self._mock:
+            return self._mock_response(prompt)
+        return self._call_with_retries(prompt, max_tokens)
+
+    def generate_batch(
+        self,
+        prompts: List[str],
+        max_tokens: int = 400,
+        delay_seconds: float = 0.0,
+        max_workers: Optional[int] = None,
+        progress_every: int = DEFAULT_PROGRESS_EVERY,
+    ) -> List[str]:
+        """
+        Сгенерировать описания для списка промтов.
+
+        Args:
+            prompts:        список промтов (порядок результатов сохраняется).
+            max_tokens:     лимит токенов на ответ.
+            delay_seconds:  пауза между запросами в последовательном режиме (rate-limit guard).
+            max_workers:    переопределить self.max_workers только для этого вызова.
+            progress_every: логировать прогресс каждые N товаров.
+
+        Returns:
+            список строк-ответов в исходном порядке prompts.
+        """
+        workers = max_workers if max_workers is not None else self.max_workers
+        total = len(prompts)
+        if total == 0:
+            return []
+
+        logger.info("generate_batch: %d промтов, workers=%d, mock=%s",
+                    total, workers, self._mock)
+
+        if workers == 1:
+            return self._run_sequential(prompts, max_tokens, delay_seconds, progress_every)
+        return self._run_parallel(prompts, max_tokens, workers, progress_every)
+
+    # ------------------------------------------------------------- internals
+
+    def _mock_response(self, prompt: str) -> str:
+        return (
+            f"[MOCK] Описание для промта длиной {len(prompt)} символов. "
+            "Деталь предназначена для использования в промышленных станках. "
+            "Обеспечивает надёжную работу узла. "
+            "Совместима с моделями, указанными в технической документации. "
+            "Параметры выполняются по конструкторской документации."
+        )
+
+    def _call_with_retries(self, prompt: str, max_tokens: int) -> str:
+        """Один вызов API с ретраями на временные ошибки."""
+        last_err: Optional[Exception] = None
+        for attempt in range(self.max_retries):
+            try:
+                response = self._client.messages.create(
+                    model=self.model_id,
+                    max_tokens=max_tokens,
+                    messages=[{"role": "user", "content": prompt}],
+                )
+                return response.content[0].text.strip()
+            except Exception as e:
+                last_err = e
+                if not self._is_retryable(e) or attempt == self.max_retries - 1:
+                    raise
+                wait = self.backoff_base ** (attempt + 1)
+                logger.warning(
+                    "API error (attempt %d/%d): %s — retry in %.1fs",
+                    attempt + 1, self.max_retries, e, wait,
+                )
+                time.sleep(wait)
+        # сюда не попадаем, но на всякий
+        raise RuntimeError(f"Unreachable: last_err={last_err}")
+
+    @staticmethod
+    def _is_retryable(exc: Exception) -> bool:
+        """Решить, имеет ли смысл повтор."""
+        name = exc.__class__.__name__
+        # Anthropic SDK: RateLimitError, APIConnectionError, InternalServerError, APITimeoutError
+        if name in {"RateLimitError", "APIConnectionError", "APITimeoutError",
+                    "InternalServerError", "ServiceUnavailableError"}:
+            return True
+        # Если SDK не подгружен или ошибка другая — смотрим текст
+        msg = str(exc).lower()
+        return any(s in msg for s in ("rate limit", "429", "timeout", "connection",
+                                       "503", "502", "overloaded"))
+
+    def _run_sequential(
+        self, prompts: List[str], max_tokens: int,
+        delay_seconds: float, progress_every: int,
+    ) -> List[str]:
+        results: List[str] = []
+        total = len(prompts)
+        for i, prompt in enumerate(prompts):
+            if self._mock:
+                results.append(self._mock_response(prompt))
+            else:
+                results.append(self._call_with_retries(prompt, max_tokens))
+                if i < total - 1 and delay_seconds > 0:
+                    time.sleep(delay_seconds)
+            if (i + 1) % progress_every == 0 or (i + 1) == total:
+                logger.info("  progress: %d/%d", i + 1, total)
+        return results
+
+    def _run_parallel(
+        self, prompts: List[str], max_tokens: int,
+        workers: int, progress_every: int,
+    ) -> List[str]:
+        """
+        Параллельная генерация через ThreadPoolExecutor.
+
+        Используем executor.map для сохранения порядка результатов.
+        Прогресс считаем по counter — он атомарный для int в CPython.
+        """
+        total = len(prompts)
+        results: List[Optional[str]] = [None] * total
+        completed = [0]  # обёртка для замыкания
+
+        def worker(idx_prompt):
+            idx, prompt = idx_prompt
+            if self._mock:
+                out = self._mock_response(prompt)
+            else:
+                out = self._call_with_retries(prompt, max_tokens)
+            completed[0] += 1
+            done = completed[0]
+            if done % progress_every == 0 or done == total:
+                logger.info("  progress: %d/%d", done, total)
+            return idx, out
+
+        start = time.time()
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            for idx, content in executor.map(worker, enumerate(prompts)):
+                results[idx] = content
+        elapsed = time.time() - start
+        rate = total / elapsed if elapsed > 0 else 0
+        logger.info("Параллельная генерация: %d товаров за %.1fс (%.1f items/s)",
+                    total, elapsed, rate)
+
+        return [r if r is not None else "" for r in results]
