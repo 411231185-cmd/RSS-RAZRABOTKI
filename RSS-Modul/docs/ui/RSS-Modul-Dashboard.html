@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSS-Modul Dashboard</title>
+<style>
+  /* === Theme tokens (TKP RSS Pro style) === */
+  :root {
+    --bg-primary:    #0a0e1a;
+    --bg-secondary:  #111827;
+    --bg-card:       #131a2c;
+    --bg-input:      #0f1525;
+    --border:        #1e2940;
+    --border-hover:  #2d3f5f;
+
+    --mint:          #5eead4;
+    --cyan:          #22d3ee;
+    --mint-dim:      rgba(94, 234, 212, 0.12);
+    --cyan-dim:      rgba(34, 211, 238, 0.12);
+
+    --text-primary:  #e2e8f0;
+    --text-secondary:#94a3b8;
+    --text-muted:    #64748b;
+
+    --success:       #4ade80;
+    --warning:       #fbbf24;
+    --error:         #f87171;
+
+    --font-mono:     'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    --font-sans:     -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  /* === Header === */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .header h1 {
+    font-family: var(--font-mono);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--mint);
+    letter-spacing: 0.5px;
+  }
+  .header h1 .accent { color: var(--cyan); }
+  .header .subtitle {
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+
+  /* === API base config === */
+  .api-config {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .api-config input {
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    color: var(--mint);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    width: 220px;
+  }
+
+  /* === Layout === */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    transition: border-color 0.15s;
+  }
+  .card:hover { border-color: var(--border-hover); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-title {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--mint);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .card-badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+
+  /* === Form elements === */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .field label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .field input[type="text"],
+  .field input[type="number"],
+  .field select {
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    transition: border-color 0.15s;
+  }
+  .field input:focus,
+  .field select:focus {
+    outline: none;
+    border-color: var(--mint);
+  }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+  .checkbox-row input { accent-color: var(--mint); }
+
+  .btn-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  button {
+    background: var(--mint-dim);
+    border: 1px solid var(--mint);
+    color: var(--mint);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    transition: all 0.15s;
+  }
+  button:hover { background: var(--mint); color: var(--bg-primary); }
+  button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: transparent;
+  }
+  button.secondary {
+    border-color: var(--cyan);
+    color: var(--cyan);
+    background: var(--cyan-dim);
+  }
+  button.secondary:hover { background: var(--cyan); color: var(--bg-primary); }
+  button.danger {
+    border-color: var(--error);
+    color: var(--error);
+    background: rgba(248, 113, 113, 0.1);
+  }
+
+  /* === Output === */
+  .output {
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-primary);
+    margin-top: 12px;
+    max-height: 320px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .output:empty { display: none; }
+
+  .output .ok    { color: var(--success); }
+  .output .warn  { color: var(--warning); }
+  .output .err   { color: var(--error); }
+  .output .label { color: var(--cyan); }
+  .output .dim   { color: var(--text-muted); }
+
+  /* === Status indicator === */
+  .status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    margin-right: 6px;
+  }
+  .status-dot.ok      { background: var(--success); box-shadow: 0 0 6px var(--success); }
+  .status-dot.warn    { background: var(--warning); }
+  .status-dot.err     { background: var(--error); }
+  .status-dot.loading { background: var(--cyan); animation: pulse 1.2s infinite; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.3; }
+  }
+
+  /* === Stats grid === */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .stat-item {
+    background: var(--bg-input);
+    border-left: 2px solid var(--mint);
+    padding: 10px 12px;
+    border-radius: 0 4px 4px 0;
+  }
+  .stat-item.cyan { border-left-color: var(--cyan); }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .stat-value {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--mint);
+    margin-top: 4px;
+  }
+  .stat-item.cyan .stat-value { color: var(--cyan); }
+
+  /* === Inline log row === */
+  .log-row {
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .log-row:last-child { border-bottom: none; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>RSS-<span class="accent">Modul</span> Dashboard</h1>
+    <div class="subtitle">v1.0 | ТД РУССтанкоСбыт | Backend Pipeline Console</div>
+  </div>
+  <div class="api-config">
+    <span>API:</span>
+    <input type="text" id="api-base" value="http://localhost:8000">
+  </div>
+</div>
+
+<!-- ============ STATUS ============ -->
+<div class="card" style="margin-bottom: 20px;">
+  <div class="card-header">
+    <span class="card-title">
+      <span class="status-dot" id="health-dot"></span>System Status
+    </span>
+    <span class="card-badge" id="health-badge">не проверено</span>
+  </div>
+  <div class="btn-row">
+    <button onclick="checkHealth()">Health Check</button>
+    <button class="secondary" onclick="fetchStats()">Refresh Stats</button>
+  </div>
+  <div class="stats" id="stats-grid"></div>
+  <div class="output" id="status-output"></div>
+</div>
+
+<div class="grid">
+
+  <!-- ============ COLLECT ============ -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">▸ Collect Raw</span>
+      <span class="card-badge">PromPortal → SQLite</span>
+    </div>
+
+    <div class="field">
+      <label>Source</label>
+      <select id="collect-source">
+        <option value="promportal_export">promportal_export</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Code Prefix (опционально)</label>
+      <input type="text" id="collect-prefix" placeholder="например: 163">
+    </div>
+    <div class="field">
+      <label>File Path (опционально)</label>
+      <input type="text" id="collect-file" placeholder="input/PromPortal №1.xlsx">
+    </div>
+
+    <div class="btn-row">
+      <button onclick="runCollect()">Запустить сбор</button>
+    </div>
+    <div class="output" id="collect-output"></div>
+  </div>
+
+  <!-- ============ GENERATE + VALIDATE ============ -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">▸ Generate + Validate</span>
+      <span class="card-badge">Claude API</span>
+    </div>
+
+    <div class="field">
+      <label>Code Prefix</label>
+      <input type="text" id="gen-prefix" placeholder="например: 163">
+    </div>
+    <div class="field">
+      <label>Model ID</label>
+      <input type="text" id="gen-model" value="claude-sonnet">
+    </div>
+    <div class="field">
+      <label>Max Workers (1–10)</label>
+      <input type="number" id="gen-workers" value="5" min="1" max="10">
+    </div>
+    <label class="checkbox-row">
+      <input type="checkbox" id="gen-auto-validate" checked>
+      После генерации запустить валидацию
+    </label>
+    <label class="checkbox-row">
+      <input type="checkbox" id="gen-auto-invalid">
+      Показать невалидные после валидации
+    </label>
+
+    <div class="btn-row">
+      <button onclick="runGenerate()">Запустить генерацию</button>
+      <button class="secondary" onclick="runValidate()">Только валидация</button>
+    </div>
+    <div class="output" id="gen-output"></div>
+  </div>
+
+  <!-- ============ EXPORT ============ -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">▸ Export PromPortal</span>
+      <span class="card-badge">SQLite → XLSX</span>
+    </div>
+
+    <div class="field">
+      <label>Code Prefix (опционально)</label>
+      <input type="text" id="exp-prefix" placeholder="например: 163">
+    </div>
+    <div class="field">
+      <label>Template Path (опционально)</label>
+      <input type="text" id="exp-template" placeholder="input/PromPortal №1.xlsx">
+    </div>
+    <div class="field">
+      <label>Output Path (опционально)</label>
+      <input type="text" id="exp-output" placeholder="output/result.xlsx">
+    </div>
+    <label class="checkbox-row">
+      <input type="checkbox" id="exp-add-sb" checked>
+      Добавить SERVICESBLOCK
+    </label>
+
+    <div class="btn-row">
+      <button onclick="runExport()">Запустить экспорт</button>
+    </div>
+    <div class="output" id="exp-output"></div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   API helpers
+   ============================================================ */
+const $ = (id) => document.getElementById(id);
+const apiBase = () => $("api-base").value.trim().replace(/\/$/, "");
+
+async function apiPost(path, body) {
+  const res = await fetch(apiBase() + path, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.detail || `HTTP ${res.status}`);
+  return data;
+}
+
+async function apiGet(path) {
+  const res = await fetch(apiBase() + path);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.detail || `HTTP ${res.status}`);
+  return data;
+}
+
+/* ============================================================
+   Output rendering helpers
+   ============================================================ */
+function logTo(elId, lines) {
+  const el = $(elId);
+  if (!Array.isArray(lines)) lines = [lines];
+  el.innerHTML = lines.map(l =>
+    typeof l === "string" ? `<div class="log-row">${l}</div>` : l
+  ).join("");
+  el.scrollTop = el.scrollHeight;
+}
+
+function appendTo(elId, line) {
+  const el = $(elId);
+  el.innerHTML += `<div class="log-row">${line}</div>`;
+  el.scrollTop = el.scrollHeight;
+}
+
+function nowTime() {
+  const d = new Date();
+  return d.toTimeString().slice(0, 8);
+}
+
+function ok(text)   { return `<span class="ok">✓</span> ${text}`; }
+function warn(text) { return `<span class="warn">⚠</span> ${text}`; }
+function err(text)  { return `<span class="err">✗</span> ${text}`; }
+function dim(text)  { return `<span class="dim">${text}</span>`; }
+function label(text){ return `<span class="label">${text}</span>`; }
+
+function renderStats(result) {
+  const v = result.validation || {};
+  $("stats-grid").innerHTML = `
+    <div class="stat-item">
+      <div class="stat-label">Products</div>
+      <div class="stat-value">${result.products ?? "—"}</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Source Desc</div>
+      <div class="stat-value">${result.source_descriptions ?? "—"}</div>
+    </div>
+    <div class="stat-item cyan">
+      <div class="stat-label">Generated</div>
+      <div class="stat-value">${result.generated_texts ?? "—"}</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Valid</div>
+      <div class="stat-value">${v.valid ?? "—"}</div>
+    </div>
+    <div class="stat-item cyan">
+      <div class="stat-label">Invalid</div>
+      <div class="stat-value">${v.invalid ?? "—"}</div>
+    </div>
+  `;
+}
+
+/* ============================================================
+   Health & Stats
+   ============================================================ */
+async function checkHealth() {
+  const dot = $("health-dot");
+  dot.className = "status-dot loading";
+  $("health-badge").textContent = "проверка…";
+  try {
+    const data = await apiGet("/api/health");
+    dot.className = "status-dot ok";
+    $("health-badge").textContent = `${data.status} | v${data.version || "?"}`;
+    logTo("status-output", [
+      ok(`API доступен: ${apiBase()}`),
+      dim(`tasks: ${data.available_tasks?.join(", ") || "—"}`),
+    ]);
+  } catch (e) {
+    dot.className = "status-dot err";
+    $("health-badge").textContent = "недоступен";
+    logTo("status-output", [
+      err(`API недоступен: ${e.message}`),
+      dim("Проверь, что uvicorn запущен на " + apiBase()),
+      dim("И что в FastAPI добавлен CORSMiddleware (см. README)"),
+    ]);
+  }
+}
+
+async function fetchStats() {
+  try {
+    const data = await apiGet("/api/stats");
+    renderStats(data);
+    appendTo("status-output", ok(`[${nowTime()}] stats обновлён`));
+  } catch (e) {
+    appendTo("status-output", err(`stats: ${e.message}`));
+  }
+}
+
+/* ============================================================
+   Collect
+   ============================================================ */
+async function runCollect() {
+  const params = {
+    source:      $("collect-source").value,
+    code_prefix: $("collect-prefix").value.trim() || null,
+    file_path:   $("collect-file").value.trim() || null,
+  };
+  logTo("collect-output", [
+    label(`[${nowTime()}] POST /api/collect`),
+    dim(JSON.stringify(params)),
+    dim("выполняется…"),
+  ]);
+  try {
+    const data = await apiPost("/api/collect", params);
+    const r = data.result;
+    logTo("collect-output", [
+      ok(`Готово`),
+      `${label("Products:")}     ${r.products}`,
+      `${label("Descriptions:")} ${r.descriptions}`,
+      `${label("Skipped:")}      ${r.skipped}`,
+      dim(`source: ${r.source} | file: ${r.file_path}`),
+    ]);
+    fetchStats();
+  } catch (e) {
+    appendTo("collect-output", err(e.message));
+  }
+}
+
+/* ============================================================
+   Generate + Validate
+   ============================================================ */
+async function runGenerate() {
+  const params = {
+    model_id:           $("gen-model").value.trim(),
+    code_prefix:        $("gen-prefix").value.trim() || null,
+    add_services_block: false,
+    max_workers:        parseInt($("gen-workers").value) || 1,
+  };
+  logTo("gen-output", [
+    label(`[${nowTime()}] POST /api/generate`),
+    dim(JSON.stringify(params)),
+    dim("генерация может занять минуты на больших батчах…"),
+  ]);
+  try {
+    const data = await apiPost("/api/generate", params);
+    const r = data.result;
+    appendTo("gen-output", ok(`Сгенерировано: ${r.items_processed} | пропущено: ${r.skipped}`));
+
+    if ($("gen-auto-validate").checked) {
+      await runValidate(true);
+    }
+    fetchStats();
+  } catch (e) {
+    appendTo("gen-output", err(e.message));
+  }
+}
+
+async function runValidate(silent = false) {
+  const params = {
+    text_type:   "newdescriptiontop",
+    code_prefix: $("gen-prefix").value.trim() || null,
+  };
+  if (!silent) {
+    logTo("gen-output", [
+      label(`[${nowTime()}] POST /api/validate`),
+      dim(JSON.stringify(params)),
+    ]);
+  } else {
+    appendTo("gen-output", label(`[${nowTime()}] валидация…`));
+  }
+  try {
+    const data = await apiPost("/api/validate", params);
+    const r = data.result;
+    appendTo("gen-output", ok(`Проверено: ${r.checked} | валидно: ${r.valid} | с ошибками: ${r.invalid}`));
+
+    if ($("gen-auto-invalid").checked && r.invalid > 0) {
+      const prefix = params.code_prefix ? `?code_prefix=${encodeURIComponent(params.code_prefix)}` : "";
+      const inv = await apiGet(`/api/validate/invalid${prefix}`);
+      appendTo("gen-output", warn(`Невалидные (${inv.count}):`));
+      inv.items.slice(0, 20).forEach(item => {
+        const errs = (item.errors || []).join("; ");
+        appendTo("gen-output", `  ${dim("[")}${item.code}${dim("]")} ${errs}`);
+      });
+      if (inv.items.length > 20) {
+        appendTo("gen-output", dim(`  ... и ещё ${inv.items.length - 20}`));
+      }
+    }
+    fetchStats();
+  } catch (e) {
+    appendTo("gen-output", err(e.message));
+  }
+}
+
+/* ============================================================
+   Export
+   ============================================================ */
+async function runExport() {
+  const params = {
+    template_path:      $("exp-template").value.trim() || null,
+    output_path:        $("exp-output").value.trim() || null,
+    code_prefix:        $("exp-prefix").value.trim() || null,
+    add_services_block: $("exp-add-sb").checked,
+    text_type:          "newdescriptiontop",
+  };
+  logTo("exp-output", [
+    label(`[${nowTime()}] POST /api/export`),
+    dim(JSON.stringify(params)),
+    dim("выполняется…"),
+  ]);
+  try {
+    const data = await apiPost("/api/export", params);
+    const r = data.result;
+    logTo("exp-output", [
+      ok(`Готово`),
+      `${label("Output:")}         ${r.output}`,
+      `${label("Loaded from DB:")} ${r.loaded_from_db}`,
+      `${label("Total in file:")}  ${r.total}`,
+      `${label("Updated:")}        ${r.updated}`,
+      `${label("Missing:")}        ${r.missing}`,
+      `${label("Skipped:")}        ${r.skipped_no_code}`,
+    ]);
+  } catch (e) {
+    appendTo("exp-output", err(e.message));
+  }
+}
+
+/* ============================================================
+   Auto-init: проверить здоровье на старте
+   ============================================================ */
+window.addEventListener("DOMContentLoaded", () => {
+  setTimeout(checkHealth, 100);
+  setTimeout(fetchStats, 300);
+});
+</script>
+
+</body>
+</html>
