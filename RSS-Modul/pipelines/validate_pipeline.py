@@ -15,31 +15,19 @@ import re
 from pathlib import Path
 from typing import List, Optional, Dict, Any, Tuple
 
+from core.text_utils import (
+    FORBIDDEN_MARKETING,
+    FORBIDDEN_FIRST_PERSON,
+    FORBIDDEN_CTA,
+    FORBIDDEN_INTROS,
+    has_html_garbage,
+    has_marketing_cliche,
+)
 from storage.db import init_db, get_connection
 
 logger = logging.getLogger(__name__)
 
 VALIDATION_SCHEMA_PATH = Path("storage/schema_validation.sql")
-
-# -- Запрещённая лексика (по эталонному промту) ------------------------------
-# Фразы ищем по границе слова, регистр игнорируем.
-FORBIDDEN_MARKETING = [
-    r"купит[ьеи]", r"заказат[ьеи]", r"закаж[иу]те", r"закажем",
-    r"цен[аыеуой]", r"стоимост[ьи]", r"скидк[аиу]", r"акци[яиюей]",
-    r"доставк[аиу]", r"в наличии", r"со склада", r"под заказ",
-    r"выгодно", r"выгодн[аоые][яеыйм]?",
-]
-FORBIDDEN_FIRST_PERSON = [
-    r"\bмы\b", r"\bнаш[аеиуйюя]?\b", r"наша компания", r"наша организация",
-    r"предлагаем", r"специализируемся", r"работаем",
-]
-FORBIDDEN_CTA = [
-    r"обращайтесь", r"уточняйте", r"проконсультируйтесь",
-    r"оставьте заявку", r"звоните", r"свяжитесь", r"напишите нам",
-]
-FORBIDDEN_INTROS = [
-    r"^вот описание", r"^конечно", r"^хорошо,", r"^итак,",
-]
 
 # -- Выдуманные параметры ----------------------------------------------------
 # Если в описании встречаются конкретные технические числа,
@@ -118,14 +106,11 @@ def _validate_text(content: str, source_text: str) -> Tuple[bool, List[str]]:
 
     stripped = content.strip()
 
-    # 1. HTML-теги
-    if re.search(r"<[a-zA-Z/!][^>]*>", stripped):
-        # SERVICESBLOCK исключаем — он легитимен на этом этапе ещё не должен быть добавлен,
-        # но если попался — отделяем его маркером.
-        from core.servicesblock import SERVICESBLOCK_MARKER
-        text_wo_block = stripped.split(SERVICESBLOCK_MARKER)[0]
-        if re.search(r"<[a-zA-Z/!][^>]*>", text_wo_block):
-            errors.append("содержит HTML-теги")
+    # 1. HTML-мусор (теги или сущности) — после очистки в адаптере означает мусор от Claude
+    from core.servicesblock import SERVICESBLOCK_MARKER
+    text_wo_block = stripped.split(SERVICESBLOCK_MARKER)[0]
+    if has_html_garbage(text_wo_block):
+        errors.append("HTML_GARBAGE: содержит HTML-теги или сущности")
 
     # 2. Кавычки вокруг всего текста
     if (stripped.startswith('"') and stripped.endswith('"')) or \
@@ -151,6 +136,10 @@ def _validate_text(content: str, source_text: str) -> Tuple[bool, List[str]]:
     intros = _has_forbidden(stripped, FORBIDDEN_INTROS)
     if intros:
         errors.append(f"вводные фразы: {', '.join(intros)}")
+
+    # 7. Маркетинговые клише ("лучшая цена", "высокое качество" и т.п.)
+    if has_marketing_cliche(stripped):
+        errors.append("MARKETING_TONE_CLICHE: маркетинговые клише")
 
     # 5. Длина 4–6 предложений
     n_sent = _count_sentences(stripped)

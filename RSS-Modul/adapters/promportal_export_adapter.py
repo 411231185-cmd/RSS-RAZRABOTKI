@@ -5,6 +5,7 @@ from typing import List, Tuple
 import pandas as pd
 
 from core.models import Product, SourceDescription
+from core.text_utils import clean_text, count_html_artifacts
 
 logger = logging.getLogger(__name__)
 
@@ -57,6 +58,9 @@ def load_promportal_export(
     products: List[Product] = []
     source_descriptions: List[SourceDescription] = []
 
+    cleaned_html_count = 0
+    cleaned_html_artifacts_total = 0
+
     for _, row in df.iterrows():
         code = row[COL_CODE]
 
@@ -78,7 +82,13 @@ def load_promportal_export(
             )
         )
 
-        raw_desc = str(row.get(COL_DESC, "")).strip()
+        raw_desc_original = str(row.get(COL_DESC, ""))
+        artifacts = count_html_artifacts(raw_desc_original)
+        if artifacts > 0:
+            cleaned_html_count += 1
+            cleaned_html_artifacts_total += artifacts
+        raw_desc = clean_text(raw_desc_original)
+
         source_descriptions.append(
             SourceDescription(
                 code=code,
@@ -88,6 +98,9 @@ def load_promportal_export(
         )
 
     with_desc = sum(1 for sd in source_descriptions if sd.raw_description)
-    logger.info(f"Parsed: {len(products)} products, {with_desc} with descriptions")
+    logger.info(
+        "Parsed: %d products, %d with descriptions | HTML cleaned: %d records, %d artifacts",
+        len(products), with_desc, cleaned_html_count, cleaned_html_artifacts_total,
+    )
 
     return products, source_descriptions
